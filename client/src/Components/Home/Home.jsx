@@ -18,7 +18,8 @@ function Home() {
         {/* <img src={cloud1} className='absolute -z-0 w-[140px] top-[180px] left-[250px]' alt="" />
         <img src={cloud2} className='absolute -z-0 top-[180px] right-[250px]' alt="" /> */}
         {/* <Navbar/> */}
-        <ItemList/>
+        <ItemHome/>
+        {/* <ItemList/> */}
         </div>
       )
 }

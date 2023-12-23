@@ -29,15 +29,9 @@ function ItemDetailPage() {
                 <div className='w-[50%] h-full  overflow-hidden flex items-center justify-center '>
                 <img className='object-cover' src="https://www.telegraph.co.uk/content/dam/family/2022/11/01/TELEMMGLPICT000314735064_trans_NvBQzQNjv4Bq-LJS7LKjeK9Zr8QxHnNHGwpwjfeuChtHUoe9wtZBhk8.jpeg?imwidth=960" alt="" />
                 </div>
-
-
                 </div>
                
             </div>
-
-     
-
-
            </div>
            <div className=' w-full h-auto flex flex-row justify-between gap-10 mt-5'>
                 <div className='flex flex-col mt-3 w-[50%]'>
@@ -126,7 +120,7 @@ function ItemDetailPage() {
                     </div>
                     <button className='text-white w-[100%] bg-[#295cd3] px-3 py-2 h-[50px] mt-[20px] rounded-lg'>
                                 RentIt
-                            </button>
+                    </button>
                    
 
 

@@ -4,11 +4,9 @@ import Login from './Components/User/Login';
 import Home from './Components/Home/Home';
 
 
-
 function App() {
   return (
   <>
-  
   <Home/>
   </>
   );
