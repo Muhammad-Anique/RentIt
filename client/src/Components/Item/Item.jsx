@@ -1,9 +1,9 @@
 import React from 'react'
-import '../Home/fonts.css'
+import '../../Assets/fonts.css'
 
 function Item(props) {
   return (
-    <div className='w-[250px] h-[300px]  flex flex-col cursor-pointer' onClick={() => {props.clickEvent()}}>
+    <div className='w-[250px] h-[300px] hover:scale-105 ease-in-out duration-200  flex flex-col cursor-pointer' >
        <div class=' rounded-2xl w-full h-[70%] overflow-hidden'>
             <img src="https://img.mensxp.com/media/content/2015/Dec/outrageous-reasons-why-clothes-from-high-street-brands-are-so-cheap980-1449570771.jpg" 
                 class='object-cover w-full h-full' 

@@ -1,34 +1,14 @@
-const mysql = require('mysql');
+const express = require('express');
+const cors = require('cors');
+const userRoutes = require('./Routes/userRoutes');
 
-// Create a connection to the MySQL database
-const connection = mysql.createConnection({
-  host: 'localhost', // Your MySQL server's hostname
-  user: 'root', // MySQL username
-  password: '123456', // MySQL password
-  database: 'rentitschema' // MySQL database name
-});
+const app = express();
 
-// Connect to MySQL
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL database: ' + err.stack);
-    return;
-  }
-  console.log('Connected to MySQL database as id ' + connection.threadId);
-});
+app.use(cors());
+app.use(express.json());
+app.use('/', userRoutes);
 
-// Perform operations (e.g., querying the database)
-connection.query('SELECT * FROM user', (error, results, fields) => {
-  if (error) throw error;
-  // Process results here
-  console.log('Query results:', results);
-});
-
-// Close the MySQL connection
-connection.end((err) => {
-  if (err) {
-    console.error('Error closing the connection: ' + err.stack);
-    return;
-  }
-  console.log('Connection closed');
+const PORT = 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

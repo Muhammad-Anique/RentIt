@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as ReactDOM from "react-dom/client";
 import {
@@ -9,15 +8,59 @@ import {
 } from "react-router-dom";
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';
-import ItemList from './Components/Item/ItemList';
-
-
+import Layout from './Components/Layout.jsx/Layout';
+import About from './Components/About.jsx/About';
+import Home from './Components/Home/Home';
+import CategoryLayout from './Components/CategoryLayout/CategoryLayout';
+import CategoryPage from './Components/CategoryPage/CategoryPage';
+import ItemDetailPage from './Components/Item/ItemDetailPage';
+import store from './store/store.js'
+import { Provider } from 'react-redux';
+import AddItem from './Components/Item/AddItem.jsx';
 
 
 const router = createBrowserRouter([
   {
-    path: "/Home",
-    element: <App/>,
+    path: "/",
+    element: <Layout/>,
+    children:[
+      {
+        path:"/",
+        element:<Home/>,
+      },    
+      {
+        path:"/about",
+        element:<About/>
+
+      },      
+      {
+        path:"/add",
+        element:<AddItem/>
+      },
+     
+    ]
+
+  },
+  {
+    path: "/home/:id",
+    element: <Layout loggedIn={1} />,
+    children:[
+      {
+        path:"/home/:id",
+        element:<Home/>,
+      },    
+      {
+        path:"/home/:id/about",
+        element:<About/>
+
+      },      
+      {
+        path:"/home/:id/add",
+        element:<AddItem/>
+      },
+     
+    ]
+
   },
   {
     path:"/login",
@@ -28,20 +71,31 @@ const router = createBrowserRouter([
     element: <Register/>
   },
   {
-    path:"/Item",
-    element: <ItemList/>
+    path:"/Category",
+    element: <CategoryLayout/>,
+    children:[
+      {
+        path:"/Category/Id/:categoryId/:subCategory/:type",
+        element:<CategoryPage/>
+      },
+      {
+        path:"/Category/Id/:categoryId/Item/:itemId",
+        element:<ItemDetailPage/>
+      }
+    ]
+  
   },
-  {
-    path:"/Item",
-    element: <ItemList/>
-  }
+ 
 ]);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <RouterProvider router={router} />
+    <Provider store={store}>
+    <RouterProvider router={router} />
+    </Provider>
+  
   </React.StrictMode>
 );
 
