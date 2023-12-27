@@ -14,7 +14,6 @@ const getAllUsers = (req, res) => {
 const getUserById = (req, res) => {
   const userId = req.params.userId; // Get userId from URL params
   console.log(userId)
-  
   pool.query(userQueries.getUserByIdQuery, [userId], (error, results) => {
     if (error) {
       res.status(500).json({ error: 'Error fetching user' });

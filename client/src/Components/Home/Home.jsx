@@ -51,14 +51,14 @@ function Home() {
             </div>
           
             <div className='flex flex-row w-[80%] items-center justify-center gap-7 mt-10'>
-            <Link to='/Category/Id/1' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15] ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/eha/a/a' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15] ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[200px]  overflow-hidden bg-white rounded-t-2xl'>
                 <img src={EandH} className='object-cover scale-[2.2] translate-y-[55px]' alt="" />         
             </div>
             <p className='text-[#4b4b4b] text-center mt-2 '>Electronics & <br /> Home Appliances</p>
             </Link>
            
-            <Link to='/Category/Id/2' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15]   ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/bhs/a/a' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15]   ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[200px] rounded-t-2xl overflow-hidden bg-white'>
                 <img src="https://secure.touchnet.com/C20175_ustores/web/uploaded_images/store_54/Sports_Image.jpg" className='object-cover scale-[2.2] translate-y-[55px]' alt="" />         
             </div>
@@ -66,7 +66,7 @@ function Home() {
             </Link>
 
 
-            <Link to='/Category/Id/3' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15] ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/fb/a/a' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15] ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[200px] rounded-t-2xl overflow-hidden bg-white'>
                 <img src="https://img.mensxp.com/media/content/2015/Dec/outrageous-reasons-why-clothes-from-high-street-brands-are-so-cheap980-1449570771.jpg" className='object-cover scale-[2.2] translate-y-[55px]' alt="" />         
             </div>
@@ -75,7 +75,7 @@ function Home() {
             </Link>
 
 
-            <Link to='/Category/Id/4' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15]  ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/fhd/a/a' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  hover:scale-[1.15]  ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[200px] rounded-t-2xl overflow-hidden bg-white'>
                 <img src="https://static.vecteezy.com/system/resources/previews/022/819/321/non_2x/interior-background-of-living-room-with-stucco-wall-vase-with-twig-on-decorative-accent-coffee-table-empty-mock-up-wall-and-wooden-flooring-pendant-light-modern-home-decor-ai-generated-free-photo.jpeg" className='object-cover scale-[2.2] translate-y-[55px]' alt="" />         
             </div>

@@ -75,7 +75,7 @@ const router = createBrowserRouter([
     element: <CategoryLayout/>,
     children:[
       {
-        path:"/Category/Id/:categoryId/:subCategory/:type",
+        path:"/Category/Id/:mainCategory/:subCategory/:type",
         element:<CategoryPage/>
       },
       {

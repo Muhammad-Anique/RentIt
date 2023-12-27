@@ -18,6 +18,11 @@ function Navbar_() {
   const [data, setData] =useState()
   const [username_, setUsername_] =useState(username)
 
+  const [redirectAdd, setRedirectAdd] =useState('/login')
+
+  if(isAuthenticated) {
+    setRedirectAdd('/add')
+  }
 
  
 
@@ -314,7 +319,7 @@ function Navbar_() {
    <div className='w-[20%]  flex items-center justify-end gap-4'>
 
 
-        <button className="button-cover" role="button"><span className="text">Lend</span><span>Items!</span></button>
+        <Link to="/add" className="button-cover" role="button"><span className="text">Lend</span><span>Items!</span></Link>
         <button onClick={()=>{isClikedUM()}} className='text-[#4b4b4b] scale-125 hover:text-[#295cd3]  '>
         <span class="material-symbols-outlined">
         account_circle

@@ -143,44 +143,44 @@ const Categories = {
       {
           "name": "Sofa & Chairs",
           "gIcon": "weekend", // Google Material Icon for furniture
-          "link": "/Category/Id/3001"
+          "link": "/Category/Id/fhd/sc/a"
       },
       {
           "name": "Beds & Wardrobes",
           "gIcon": "hotel", // Google Material Icon for beds/wardrobes
-          "link": "/Category/Id/3002"
+          "link": "/Category/Id/fhd/bw/a"
       },
     
       {
           "name": "Home Decoration",
           "gIcon": "wallpaper", // Google Material Icon for decoration
-          "link": "/Category/Id/3004"
+          "link": "/Category/Id/fhd/hd/a"
       },
       {
           "name": "Tables & Dining",
           "gIcon": "dining", // Google Material Icon for tables/dining
-          "link": "/Category/Id/3005"
+          "link": "/Category/Id/fhd/td/a"
       },
       {
           "name": "Office Furniture",
           "gIcon": "work", // Google Material Icon for office
-          "link": "/Category/Id/3006"
+          "link": "/Category/Id/fhd/of/a"
       },
       {
           "name": "Garden & Outdoor",
           "gIcon": "grass", // Google Material Icon for outdoor/garden
-          "link": "/Category/Id/3007"
+          "link": "/Category/Id/fhd/go/a"
       },
      
       {
           "name": "Curtains & Blinds",
           "gIcon": "window", // Google Material Icon for curtains/blinds
-          "link": "/Category/Id/3009"
+          "link": "/Category/Id/fhd/cb/a"
       },
       {
           "name": "Rugs & Carpets",
           "gIcon": "highlighter_size_5", // Google Material Icon for rugs/carpets
-          "link": "/Category/Id/3010"
+          "link": "/Category/Id/fhd/rc/a"
       },
     
   ],

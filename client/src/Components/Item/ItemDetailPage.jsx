@@ -1,6 +1,9 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 function ItemDetailPage() {
+
+  
   return (
     <div className='w-full h-auto flex items-center justify-center'>
         <div className='w-[70%]  h-auto py-2 px-2 font-medium mt-4'>
