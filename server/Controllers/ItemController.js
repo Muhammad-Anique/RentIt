@@ -84,10 +84,27 @@ const getItemBySubCat = (req, res) => {
     });
   };
 
+
+
+  
+const getTypeIdAndType= (req, res) => {
+  const subCate = req.params.subcat; 
+  const param = subCate.replace(/-/g, ' ');
+  pool.query(itemQueries.getTypeIdAndType,[param], (error, results) => {
+    if (error) {
+      res.status(500).json({ error: 'Error fetching users' });
+    } else {
+      console.log(results)
+      res.json(results);
+    }
+  });
+};
+
 module.exports = {
     getAllItems,
     getItemByMainCat,
-    getItemBySubCat
+    getItemBySubCat,
+    getTypeIdAndType
    
   };
   

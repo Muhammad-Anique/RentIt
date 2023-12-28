@@ -1,144 +1,135 @@
 const Categories = {
-    "Electronics & Home Appliances": [
-      {
-        "name": "Kitchen Appliances",
-        "gIcon": "kitchen",
-        "link": "/Category/Id/1001",
-      },
-      {
-        "name": "Computers Accessories",
-        "gIcon": "computer",
-        "link": "/Category/Id/1002",
-      },
-      {
-        "name": "Video-Audios",
-        "gIcon": "audiotrack",
-        "link": "/Category/Id/1003",
-      },
-      {
-        "name": "Home Appliances",
-        "gIcon": "home",
-        "link": "/Category/Id/1004",
-      },
-      {
-        "name": "Power Solutions",
-        "gIcon": "power",
-        "link": "/Category/Id/1005",
-      },
-      {
-        "name": "Cameras & Accessories",
-        "gIcon": "photo_camera",
-        "link": "/Category/Id/1006",
-      },
-      {
-        "name": "Games & Entertainment",
-        "gIcon": "videogame_asset",
-        "link": "/Category/Id/1007",
-      },
-      {
-        "name": "Refrigerators & Freezers",
-        "gIcon": "kitchen",
-        "link": "/Category/Id/1008",
-      },
-      {
-        "name": "AC & Coolers",
-        "gIcon": "ac_unit",
-        "link": "/Category/Id/1009",
-      },
-      {
-        "name": "Televisions & Accessories",
-        "gIcon": "tv",
-        "link": "/Category/Id/1010",
-      },
-      {
-        "name": "Washing Machines ",
-        "gIcon": "dishwasher",
-        "link": "/Category/Id/1011",
-      },
-      {
-        "name": "Heaters & Geysers",
-        "gIcon": "whatshot",
-        "link": "/Category/Id/1012",
-      },
-      {
-        "name": "Microwaves & Ovens",
-        "gIcon": "microwave",
-        "link": "/Category/Id/1013",
-      },
-      {
-        "name": "Fans",
-        "gIcon": "mode_fan",
-        "link": "/Category/Id/1014",
-      },
-      {
-        "name": "Sewing Machines",
-        "gIcon": "styler",
-        "link": "/Category/Id/1015",
-      },
-      {
-        "name": "Water Dispensers",
-        "gIcon": "water",
-        "link": "/Category/Id/1016",
-      },
-      {
-        "name": "Irons & Steamers",
-        "gIcon": "iron",
-        "link": "/Category/Id/1017",
-      },
-     
-    ],
+  "Electronics & Home Appliances": [
+    {
+      "name": "Kitchen Appliances",
+      "gIcon": "kitchen",
+      "link": "/category/id/eha/ka/a"
+    },
+    {
+      "name": "Computers Accessories",
+      "gIcon": "computer",
+      "link": "/category/id/eha/ca/a"
+    },
+    {
+      "name": "Video-Audios",
+      "gIcon": "audiotrack",
+      "link": "/category/id/eha/va/a"
+    },
+    {
+      "name": "Home Appliances",
+      "gIcon": "home",
+      "link": "/category/id/eha/ha/a"
+    },
+    {
+      "name": "Power Solutions",
+      "gIcon": "power",
+      "link": "/category/id/eha/ps/a"
+    },
+    {
+      "name": "Cameras & Accessories",
+      "gIcon": "photo_camera",
+      "link": "/category/id/eha/caa/a"
+    },
+    {
+      "name": "Games & Entertainment",
+      "gIcon": "videogame_asset",
+      "link": "/category/id/eha/ge/a"
+    },
+    {
+      "name": "Refrigerators & Freezers",
+      "gIcon": "kitchen",
+      "link": "/category/id/eha/rf/a"
+    },
+    {
+      "name": "AC & Coolers",
+      "gIcon": "ac_unit",
+      "link": "/category/id/eha/ac/a"
+    },
+    {
+      "name": "Televisions & Accessories",
+      "gIcon": "tv",
+      "link": "/category/id/eha/ta/a"
+    },
+    {
+      "name": "Washing Machines ",
+      "gIcon": "dishwasher",
+      "link": "/category/id/eha/wm/a"
+    },
+    {
+      "name": "Heaters & Geysers",
+      "gIcon": "whatshot",
+      "link": "/category/id/eha/hg/a"
+    },
+    {
+      "name": "Microwaves & Ovens",
+      "gIcon": "microwave",
+      "link": "/category/id/eha/mo/a"
+    },
+    {
+      "name": "Fans",
+      "gIcon": "mode_fan",
+      "link": "/category/id/eha/f/a"
+    },
+    {
+      "name": "Sewing Machines",
+      "gIcon": "styler",
+      "link": "/category/id/eha/sm/a"
+    },
+    {
+      "name": "Water Dispensers",
+      "gIcon": "water",
+      "link": "/category/id/eha/wd/a"
+    },
+    {
+      "name": "Irons & Steamers",
+      "gIcon": "iron",
+      "link": "/category/id/eha/is/a"
+    }
+  ],  
 
 
-    "Books, Hobbies & Sports" : [
-      {
-        "name":"Books",
-        "gIcon": "menu_book",
-        "link": "/Category/Id/2001",
-
-      },
-      {
-        "name":"Magazines",
-        "gIcon": "book",
-        "link": "/Category/Id/2002",
-
-      },
-      {
-        "name":"Sports Equipment",
-        "gIcon": "sports_basketball",
-        "link": "/Category/Id/2003",
-
-      },
-      {
-        "name":"Travel Equipment",
-        "gIcon": "luggage",
-        "link": "/Category/Id/2004",
-
-      },
-      {
-        "name":"Gym & Fitness",
-        "gIcon": "fitness_center",
-        "link": "/Category/Id/2005",
-
-      },
-      {
-        "name":"Musical Instruments",
-        "gIcon": "Piano",
-        "link": "/Category/Id/2006",
-
-      },
-      {
-        "name":"Gardening Equipment",
-        "gIcon": "Psychiatry",
-        "link": "/Category/Id/2002",
-
-      },
-      {
-        "name":"Outdoor Gear",
-        "gIcon": "hiking",
-        "link": "/Category/Id/2002",
-
-      }
-    ],
+  "Books, Hobbies & Sports": [
+    {
+      "name": "Books",
+      "gIcon": "menu_book",
+      "link": "/category/id/bhs/b/a"
+    },
+    {
+      "name": "Magazines",
+      "gIcon": "book",
+      "link": "/category/id/bhs/m/a"
+    },
+    {
+      "name": "Sports Equipment",
+      "gIcon": "sports_basketball",
+      "link": "/category/id/bhs/se/a"
+    },
+    {
+      "name": "Travel Equipment",
+      "gIcon": "luggage",
+      "link": "/category/id/bhs/te/a"
+    },
+    {
+      "name": "Gym & Fitness",
+      "gIcon": "fitness_center",
+      "link": "/category/id/bhs/gf/a"
+    },
+    {
+      "name": "Musical Instruments",
+      "gIcon": "Piano",
+      "link": "/category/id/bhs/mi/a"
+    },
+    {
+      "name": "Gardening Equipment",
+      "gIcon": "Psychiatry",
+      "link": "/category/id/bhs/ge/a"
+    },
+    {
+      "name": "Outdoor Gear",
+      "gIcon": "hiking",
+      "link": "/category/id/bhs/og/a"
+    }
+  ],  
     "Furniture & Home Decor": [
       {
           "name": "Sofa & Chairs",
@@ -186,90 +177,81 @@ const Categories = {
   ],
   "Fashion & Beauty": [
     {
-        "name": "Clothes & Coats",
-        "gIcon": "shopping_bag", // Google Material Icon for clothes
-        "link": "/Category/Id/4001"
+      "name": "Clothes & Coats",
+      "gIcon": "shopping_bag",
+      "link": "/category/id/fb/cc/a"
     },
     {
-        "name": "Wedding Dresses",
-        "gIcon": "favorite", // Google Material Icon for weddings
-        "link": "/Category/Id/4002"
+      "name": "Wedding Dresses",
+      "gIcon": "favorite",
+      "link": "/category/id/fb/wd/a"
     },
     {
-        "name": "Watches & Braclets",
-        "gIcon": "watch", // Google Material Icon for watches
-        "link": "/Category/Id/4003"
+      "name": "Watches & Braclets",
+      "gIcon": "watch",
+      "link": "/category/id/fb/wb/a"
     },
     {
-        "name": "Footwear",
-        "gIcon": "sports_football", // Google Material Icon for footwear
-        "link": "/Category/Id/4004"
+      "name": "Footwear",
+      "gIcon": "sports_football",
+      "link": "/category/id/fb/fw/a"
     },
     {
-        "name": "Jewellery & Accessories",
-        "gIcon": "emoji_objects", // Google Material Icon for jewellery
-        "link": "/Category/Id/4006"
+      "name": "Jewellery & Accessories",
+      "gIcon": "emoji_objects",
+      "link": "/category/id/fb/ja/a"
     },
     {
-        "name": "Bags & Clutches",
-        "gIcon": "luggage", // Google Material Icon for bags
-        "link": "/Category/Id/4007"
+      "name": "Bags & Clutches",
+      "gIcon": "luggage",
+      "link": "/category/id/fb/bc/a"
     },
+    
     {
-        "name": "Makeup & Beauty",
-        "gIcon": "face", // Google Material Icon for makeup
-        "link": "/Category/Id/4008"
-    },
+      "name": "Fashion Accessories",
+      "gIcon": "accessibility_new",
+      "link": "/category/id/fb/fa/a"
+    }
+  ],
+
+
+  "Kids": [
     {
-        "name": "Fashion Accessories",
-        "gIcon": "accessibility_new", // Google Material Icon for fashion accessories
-        "link": "/Category/Id/4010"
-    },
-  
-]
-,
-"Kids": [
-  {
       "name": "Kids Toys",
-      "gIcon": "toys", // Google Material Icon for toys
-      "link": "/Category/Id/5001"
-  },
-  {
+      "gIcon": "toys",
+      "link": "/category/id/k/kt/a"
+    },
+    {
       "name": "Kids Vehicles",
-      "gIcon": "directions_bike", // Google Material Icon for kids vehicles
-      "link": "/Category/Id/5002"
-  },
-  {
+      "gIcon": "directions_bike",
+      "link": "/category/id/k/kv/a"
+    },
+    {
       "name": "Kids Accessories",
-      "gIcon": "child_friendly", // Google Material Icon for kids accessories
-      "link": "/Category/Id/5003"
-  },
-  {
+      "gIcon": "child_friendly",
+      "link": "/category/id/k/ka/a"
+    },
+    {
       "name": "Kids Furniture",
-      "gIcon": "weekend", // Google Material Icon for kids furniture
-      "link": "/Category/Id/5004"
-  },
-  {
+      "gIcon": "weekend",
+      "link": "/category/id/k/kf/a"
+    },
+    {
       "name": "Baby Gear",
-      "gIcon": "child_care", // Google Material Icon for baby gear
-      "link": "/Category/Id/5005"
-  },
-  {
+      "gIcon": "child_care",
+      "link": "/category/id/k/bg/a"
+    },
+    {
       "name": "Kids Clothing",
-      "gIcon": "accessibility_new", // Google Material Icon for kids clothing
-      "link": "/Category/Id/5006"
-  },
-  {
+      "gIcon": "accessibility_new",
+      "link": "/category/id/k/kc/a"
+    },
+    {
       "name": "Swings & Slides",
-      "gIcon": "park", // Google Material Icon for swings/slides
-      "link": "/Category/Id/5007"
-  },
-
-]
-
-  
-
-  };
+      "gIcon": "park",
+      "link": "/category/id/k/ss/a"
+    }
+  ]};
   
   
   export default Categories;

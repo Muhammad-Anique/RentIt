@@ -93,10 +93,22 @@ WHERE items.name LIKE ?
 `;
 
 
+
+
+
+const getTypeIdAndType= `
+SELECT itemcategories.categoryID, 
+       itemcategories.type
+FROM itemcategories
+WHERE itemcategories.subCategory  LIKE ?
+`;
+
+
 module.exports = {
  getItemsBySubCategory,
  getItemsByMainCategory,
  getAllItems,
  getItemsByLocation,
- getItemsByQuery
+ getItemsByQuery,
+ getTypeIdAndType
 };
