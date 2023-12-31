@@ -168,6 +168,31 @@ function AddItem() {
   },[subCatVal])
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage2, setSelectedImage2] = useState(null);
+  const [selectedImage3, setSelectedImage3] = useState(null);
+  const [selectedImage4, setSelectedImage4] = useState(null);
+  const [selectedImage5, setSelectedImage5] = useState(null);
+
+  const [formValues, setFormValues] = useState({
+    itemName: '',
+    itemDescription: '',
+    itemCondition: '',
+    itemRent: '',
+    itemLocation: '',
+    itemUsage: '',
+    itemKeywords: '',
+
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value
+    });
+  };
+
+  
 
   const handleImageChange = (event) => {
       const file = event.target.files[0];
@@ -179,6 +204,55 @@ function AddItem() {
           reader.readAsDataURL(file);
       }
   };
+  const handleImageChange2 = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setSelectedImage2(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
+};
+const handleImageChange3 = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+          setSelectedImage3(reader.result);
+      };
+      reader.readAsDataURL(file);
+  }
+};
+const handleImageChange4 = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+          setSelectedImage4(reader.result);
+      };
+      reader.readAsDataURL(file);
+  }
+};
+const handleImageChange5 = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+          setSelectedImage5(reader.result);
+      };
+      reader.readAsDataURL(file);
+  }
+};
+
+function handleSubmit(){
+  
+  console.log(formValues)
+  console.log(selectedImage)
+  console.log(typeCatVal.value)
+
+
+ }
 
 
   return (
@@ -193,11 +267,12 @@ function AddItem() {
         Add Item
       </h1>
 
-      <form action="" className='flex flex-row justify-center w-[100%] items-center gap-[20px] px-[150px] py-5'>
+      <div  className='flex flex-row justify-center w-[100%] items-center gap-[20px] px-[150px] py-5'>
         <div className='flex flex-col w-[350px] '>
          <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Name</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemName" />
+            <input id="name" class="field__input" placeholder="Camera" name="itemName" value={formValues.itemName}
+            onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Name</span>
             </span>
@@ -207,12 +282,14 @@ function AddItem() {
           <div class="field field_v1 w-full flex flex-col gap-2">
             <label for="name" class="ha-screen-reader">Name</label>
             <p className='mt-5'> <span className='text-red-500'>*</span>Description</p>
-            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder="Camera" name="itemDescription" />
+            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder="Camera" name="itemDescription" value={formValues.itemDescription}
+            onChange={handleInputChange} />
           </div>
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Condition</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemCondition" />
+            <input id="name" class="field__input" placeholder="Camera" name="itemCondition"  value={formValues.itemCondition}
+            onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Condition</span>
             </span>
@@ -221,7 +298,8 @@ function AddItem() {
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemRent" />
+            <input id="name" class="field__input" placeholder="Camera" name="itemRent"  value={formValues.itemRent}
+            onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Rent</span>
             </span>
@@ -229,7 +307,8 @@ function AddItem() {
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemLocation" />
+            <input id="name" class="field__input" placeholder="Camera" name="itemLocation" value={formValues.itemLocation}
+            onChange={handleInputChange} />
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label">Location</span>
             </span>
@@ -238,7 +317,8 @@ function AddItem() {
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemUsage" />
+            <input id="name" class="field__input" placeholder="Camera" name="itemUsage" value={formValues.itemUsage}
+            onChange={handleInputChange} />
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label">Usage Details</span>
             </span>
@@ -263,7 +343,8 @@ function AddItem() {
         <div class="field field_v1 w-full flex flex-col gap-2">
             <label for="name" class="ha-screen-reader">Name</label>
             <p className='mt-5'> <span className='text-red-500'>*</span>KeyWords</p>
-            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder="Camera" name="itemDescription" />
+            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder="Camera" name="itemKeywords" value={formValues.itemKeywords}
+            onChange={handleInputChange} />
           </div>
        
         </div>
@@ -294,13 +375,13 @@ function AddItem() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={handleImageChange2}
                     className="hidden"
-                    id="fileInput"
+                    id="fileInput2"
                 />
-                <label htmlFor="fileInput" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
-                    {selectedImage ? (
-                        <img src={selectedImage} alt="Uploaded" className="w-full h-full object-cover" />
+                <label htmlFor="fileInput2" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
+                    {selectedImage2 ? (
+                        <img src={selectedImage2} alt="Uploaded" className="w-full h-full object-cover" />
                     ) : (
                         <span>+</span>
                     )}
@@ -310,13 +391,13 @@ function AddItem() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={handleImageChange3}
                     className="hidden"
-                    id="fileInput"
+                    id="fileInput3"
                 />
-                <label htmlFor="fileInput" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
-                    {selectedImage ? (
-                        <img src={selectedImage} alt="Uploaded" className="w-full h-full object-cover" />
+                <label htmlFor="fileInput3" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
+                    {selectedImage3 ? (
+                        <img src={selectedImage3} alt="Uploaded" className="w-full h-full object-cover" />
                     ) : (
                         <span>+</span>
                     )}
@@ -326,13 +407,13 @@ function AddItem() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={handleImageChange4}
                     className="hidden"
-                    id="fileInput"
+                    id="fileInput4"
                 />
-                <label htmlFor="fileInput" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
-                    {selectedImage ? (
-                        <img src={selectedImage} alt="Uploaded" className="w-full h-full object-cover" />
+                <label htmlFor="fileInput4" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
+                    {selectedImage4 ? (
+                        <img src={selectedImage4} alt="Uploaded" className="w-full h-full object-cover" />
                     ) : (
                         <span>+</span>
                     )}
@@ -342,22 +423,25 @@ function AddItem() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={handleImageChange5}
                     className="hidden"
-                    id="fileInput"
+                    id="fileInput5"
                 />
-                <label htmlFor="fileInput" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
-                    {selectedImage ? (
-                        <img src={selectedImage} alt="Uploaded" className="w-full h-full object-cover" />
+                <label htmlFor="fileInput5" className="border-2 border-gray-300 p-2 rounded-lg cursor-pointer w-full h-full flex items-center justify-center">
+                    {selectedImage5 ? (
+                        <img src={selectedImage5} alt="Uploaded" className="w-full h-full object-cover" />
                     ) : (
                         <span>+</span>
                     )}
                 </label>
             </div>
+            <button  onClick={()=>{handleSubmit()}} className='bg-[#0a1048] text-white rounded-lg w-[100px] h-[100px] hover:bg-[#0a1048e4]'>Add</button>
             
         </div>
+
+       
      
-      </form>
+      </div>
 
     
     </div>     
