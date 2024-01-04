@@ -20,11 +20,15 @@ function Navbar_() {
 
   const [redirectAdd, setRedirectAdd] =useState('/login')
 
-  if(isAuthenticated) {
-    setRedirectAdd('/add')
-  }
-
  
+ useEffect(()=>{
+  if(isAuthenticated)
+  setRedirectAdd('/add')
+else{
+  setRedirectAdd('/login')
+}
+
+ },[])
 
 
   useEffect(() => {
@@ -36,7 +40,7 @@ function Navbar_() {
           const result = await response.json();
           setData(result); 
 
-
+         console.log("Errror tis there")
           console.log(result)
         } else {
           throw new Error('Failed to fetch data');

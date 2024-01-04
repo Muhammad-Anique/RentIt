@@ -14,7 +14,7 @@ function Navbar(props) {
     lastName = nameParts[nameParts.length - 1];
 
   }
- 
+
 
 
   return (
@@ -24,12 +24,23 @@ function Navbar(props) {
     <div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>
         <p className='text-center font-bold'>How It Works</p>
     </div>
-    <Link to="/login" className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
+
+    {
+       props.loggedIn!==1 ? ( <Link to={'/login'} className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
+       {
+        <p className='text-center font-bold'>Login</p>
+       }   
+        
+     </Link>) : (
+      <div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
       {
-        props.loggedIn===1 ? (<h1>Hello <span className='font-bold'>{lastName}</span> </h1>) : ( <p className='text-center font-bold'>Login</p>)
+        <h1>Hello <span className='font-bold'>{lastName}</span> </h1>
       }   
        
-    </Link>
+    </div>
+     )
+    }
+   
 
     </div>
    
