@@ -185,11 +185,151 @@ const getTypeIdAndType= (req, res) => {
   });
 };
 
+
+
+const addItemWithDetails = (req, res) => {
+  // const {
+  //   itemName,
+  //   itemDescription,
+  //   isAvailable,
+  //   itemCondition,
+  //   OwnerId,
+  //   itemLikes,
+  //   itemRent,
+  //   itemLocation,
+  //   itemTermsConditions,
+  //   itemUsageDetails,
+  //   itemCategory,
+  //   itemKeyWords,
+  //   itemImages,
+  // } = req.body;
+
+  pool.getConnection((error, connection) => {
+
+    if (error) {
+      console.error('Error acquiring connection:', error);
+      res.status(500).json({ error: 'Error acquiring connection' });
+    } else {
+      // Start transaction
+      connection.beginTransaction((err) => {
+        if (err) {
+          console.error('Error beginning transaction:', err);
+          res.status(500).json({ error: 'Error beginning transaction' });
+        } else {
+          
+          connection.query('SELECT MAX(itemId) + 1 AS nextId FROM items;', (error, results) => {
+            if (error) {
+              console.error('Error retrieving next itemId:', error);
+            } else {
+              const nextItemId = results[0].nextId;
+              console.log('Next available itemId:', nextItemId);
+               // // Insert into items table
+                connection.query(
+                  queries.insertItem,
+                  [
+                    nextItemId,
+                    itemName,
+                    itemDescription,
+                    isAvailable,
+                    itemCondition,
+                    OwnerId,
+                    itemLikes,
+                    itemRent,
+                    itemLocation,
+                    itemTermsConditions,
+                    itemUsageDetails,
+                    itemCategory,
+                  ],
+                  (insertError, results) => {
+                    if (insertError) {
+                      connection.rollback(() => {
+                        console.error('Error inserting item:', insertError);
+                        res.status(500).json({ error: 'Error inserting item' });
+                      });
+                    } else {
+                      const itemId = results.insertId; // Get the inserted itemId
+                      res.status(200).json({"Id": nextItemId})
+                      // // Insert into itemkeywords table
+                      // connection.query(
+                      //   queries.insertKeywords,
+                      //   [itemId, ...itemKeyWords],
+                      //   (keywordError) => {
+                      //     if (keywordError) {
+                      //       connection.rollback(() => {
+                      //         console.error('Error inserting keywords:', keywordError);
+                      //         res.status(500).json({ error: 'Error inserting keywords' });
+                      //       });
+                      //     } else {
+                      //       // Insert into imageset table
+                      //       connection.query(
+                      //         queries.insertImages,
+                      //         [itemId, ...itemImages],
+                      //         (imageError) => {
+                      //           if (imageError) {
+                      //             connection.rollback(() => {
+                      //               console.error('Error inserting images:', imageError);
+                      //               res.status(500).json({ error: 'Error inserting images' });
+                      //             });
+                      //           } else {
+                      //             // Commit the transaction if all queries succeed
+                      //             connection.commit((commitError) => {
+                      //               if (commitError) {
+                      //                 connection.rollback(() => {
+                      //                   console.error('Error committing transaction:', commitError);
+                      //                   res.status(500).json({ error: 'Error committing transaction' });
+                      //                 });
+                      //               } else {
+                      //                 // All queries succeeded
+                      //                 res.json({ message: 'Item added successfully' });
+                      //               }
+                      //             });
+                      //           }
+                      //         }
+                      //       );
+                      //     }
+                      //   }
+                      // );
+                    }
+                  }
+                );
+
+
+
+
+             
+            }
+          });
+          
+        }
+      });
+      // Release the connection
+      connection.release();
+    }
+  });
+};
+
+
+
 module.exports = {
     getAllItems,
     getItemByMainCat,
     getItemBySubCat,
-    getTypeIdAndType
+    getTypeIdAndType,
+    addItemWithDetails,
    
   };
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
