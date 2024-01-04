@@ -174,7 +174,9 @@ const getItemBySubCat = (req, res) => {
   
 const getTypeIdAndType= (req, res) => {
   const subCate = req.params.subcat; 
+  console.log(subCate)
   const param = subCate.replace(/-/g, ' ');
+  console.log(param)
   pool.query(itemQueries.getTypeIdAndType,[param], (error, results) => {
     if (error) {
       res.status(500).json({ error: 'Error fetching users' });

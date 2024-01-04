@@ -105,6 +105,8 @@ function AddItem() {
   const [subCatVal, setSubCatVal] = useState({value:"select", label:"Select"})
   const [typeCatVal, setTypeCatVal] = useState({value:"select", label:"Select"})
   const [categoryId, setCategoryId] = useState(null)
+  const [keyWords, setKeywords] =useState(null)
+  const [itemType, setItemType] =useState(null)
 
   const handleOnChangeMain = selectedOption => {
     console.log('Selected:', selectedOption);
@@ -126,7 +128,7 @@ function AddItem() {
   useEffect(()=>{
     setSubCatVal({value:"select", label:"Select"})
    
-    if(mainCatVal==="Electronic & Home Appliances"){
+    if(mainCatVal==="Electronics & Home Appliances"){
       setSubCat(options1)
     }else if(mainCatVal==="Books, Hobbies & Sports"){
       setSubCat(options2)
@@ -247,28 +249,24 @@ const handleImageChange5 = (event) => {
 
 function handleSubmit(){
   
+  console.log("the data is ready ==> ==>")
   console.log(formValues)
-  console.log(selectedImage)
   console.log(typeCatVal.value)
-
 
  }
 
 
   return (
     
-    <div className=' bg-[#0A1048] w-auto h-screen flex flex-center justify-center overflow-x-hidden'>  
-    <img src={clouds} className='absolute -z-0 bottom-0 w-full' alt="" />
-    <img src={cloud1} className='absolute -z-0 w-[140px] top-[180px] left-[250px]' alt="" />
-    <img src={cloud2} className='absolute -z-0 top-[180px] right-[250px]' alt="" />
-   
-    <div className='bg-white rounded-3xl w-[1200px] h-[550px] my-auto flex flex-col  items-center py-10 z-10'>
+    <div className=' bg-[#0A1048] w-auto h-auto flex flex-center justify-center overflow-x-hidden'>  
+ 
+    <div className='bg-white rounded-3xl w-[1200px] mt-[100px]  my-auto flex flex-col mb-[80px] items-center py-10 z-10'>
       <h1>
         Add Item
       </h1>
 
-      <div  className='flex flex-row justify-center w-[100%] items-center gap-[20px] px-[150px] py-5'>
-        <div className='flex flex-col w-[350px] '>
+      <div  className='flex flex-col justify-center w-[100%] h-auto overflow-y-auto items-center gap-[20px] px-[150px] py-5'>
+        <div className='flex flex-col w-[800px] gap-5 '>
          <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Name</label>
             <input id="name" class="field__input" placeholder="Camera" name="itemName" value={formValues.itemName}
@@ -282,13 +280,13 @@ function handleSubmit(){
           <div class="field field_v1 w-full flex flex-col gap-2">
             <label for="name" class="ha-screen-reader">Name</label>
             <p className='mt-5'> <span className='text-red-500'>*</span>Description</p>
-            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder="Camera" name="itemDescription" value={formValues.itemDescription}
+            <textarea id="name" rows={5}  style={{ height: '5em' }} className="field__input"  placeholder=" " name="itemDescription" value={formValues.itemDescription}
             onChange={handleInputChange} />
           </div>
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Condition</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemCondition"  value={formValues.itemCondition}
+            <input id="name" class="field__input" placeholder="Good/Excellent/Outstanding" name="itemCondition"  value={formValues.itemCondition}
             onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Condition</span>
@@ -298,16 +296,16 @@ function handleSubmit(){
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemRent"  value={formValues.itemRent}
+            <input id="name" class="field__input" placeholder=" " name="itemRent"  value={formValues.itemRent}
             onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
-              <span class="field__label"><span className='text-red-500'>*</span>Item Rent</span>
+              <span class="field__label"><span className='text-red-500'>*</span>Item Rent Rs.</span>
             </span>
           </div>
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemLocation" value={formValues.itemLocation}
+            <input id="name" class="field__input" placeholder=" " name="itemLocation" value={formValues.itemLocation}
             onChange={handleInputChange} />
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label">Location</span>
@@ -317,7 +315,7 @@ function handleSubmit(){
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder="Camera" name="itemUsage" value={formValues.itemUsage}
+            <input id="name" class="field__input" placeholder="e.g. Uncover the lens cover before using" name="itemUsage" value={formValues.itemUsage}
             onChange={handleInputChange} />
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label">Usage Details</span>
@@ -326,11 +324,11 @@ function handleSubmit(){
 
         </div>
 
-        <div className='w-[2px] h-full bg-[#dfdfdf]'>
+        {/* <div className='w-[2px] h-full bg-[#dfdfdf]'>
 
-        </div>
+        </div> */}
 
-        <div className='flex flex-col gap-2 w-[350px]'>
+        <div className='flex flex-col gap-5 w-[800px]'>
         <p className='mt-2 text-xs'> <span className='text-red-500'>*</span>Main category</p>
         <Select className='text-xs ' options={options0} onChange={handleOnChangeMain}  />
         <p className='mt-2 text-xs'> <span className='text-red-500'>*</span>Sub Category</p>
@@ -349,11 +347,11 @@ function handleSubmit(){
        
         </div>
 
-        <div className='w-[2px] h-full bg-[#dfdfdf]'>
+        {/* <div className='w-[2px] h-full bg-[#dfdfdf]'>
 
-        </div>
+        </div> */}
 
-        <div className='flex flex-row flex-wrap gap-5 w-[300px]'>
+        <div className='flex flex-row flex-wrap gap-5 w-[800px]'>
             <div className='w-[100px] h-[100px]'>
                 <input
                     type="file"
@@ -435,9 +433,11 @@ function handleSubmit(){
                     )}
                 </label>
             </div>
-            <button  onClick={()=>{handleSubmit()}} className='bg-[#0a1048] text-white rounded-lg w-[100px] h-[100px] hover:bg-[#0a1048e4]'>Add</button>
+         
+       
             
         </div>
+        <button  onClick={()=>{handleSubmit()}} className='bg-[#0a1048] text-white rounded-lg w-[150px] h-[60px] hover:bg-[#0a1048e4]'>Add Item</button>
 
        
      
