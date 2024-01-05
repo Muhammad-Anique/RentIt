@@ -15,16 +15,7 @@ const Categories = {
       "gIcon": "audiotrack",
       "link": "/category/id/eha/va/a"
     },
-    {
-      "name": "Home Appliances",
-      "gIcon": "home",
-      "link": "/category/id/eha/ha/a"
-    },
-    {
-      "name": "Power Solutions",
-      "gIcon": "power",
-      "link": "/category/id/eha/ps/a"
-    },
+  
     {
       "name": "Cameras & Accessories",
       "gIcon": "photo_camera",
@@ -50,11 +41,7 @@ const Categories = {
       "gIcon": "tv",
       "link": "/category/id/eha/ta/a"
     },
-    {
-      "name": "Washing Machines ",
-      "gIcon": "dishwasher",
-      "link": "/category/id/eha/wm/a"
-    },
+   
     {
       "name": "Heaters & Geysers",
       "gIcon": "whatshot",
@@ -104,11 +91,7 @@ const Categories = {
       "gIcon": "sports_basketball",
       "link": "/category/id/bhs/se/a"
     },
-    {
-      "name": "Travel Equipment",
-      "gIcon": "luggage",
-      "link": "/category/id/bhs/te/a"
-    },
+   
     {
       "name": "Gym & Fitness",
       "gIcon": "fitness_center",
@@ -119,16 +102,7 @@ const Categories = {
       "gIcon": "Piano",
       "link": "/category/id/bhs/mi/a"
     },
-    {
-      "name": "Gardening Equipment",
-      "gIcon": "Psychiatry",
-      "link": "/category/id/bhs/ge/a"
-    },
-    {
-      "name": "Outdoor Gear",
-      "gIcon": "hiking",
-      "link": "/category/id/bhs/og/a"
-    }
+  
   ],  
     "Furniture & Home Decor": [
       {

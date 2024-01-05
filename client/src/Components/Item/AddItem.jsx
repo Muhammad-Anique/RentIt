@@ -16,13 +16,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useSelector } from 'react-redux';
 import { selectUsername, selectPassword, selectIsAuthenticated } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
+import { imageDB } from './config'
+import { getDownloadURL, getStorage, ref,uploadBytes } from 'firebase/storage'
+// Import the functions you need from the SDKs you need
 
-
-
-
-
+import {v4} from 'uuid'
 
 function AddItem() {
+
+ 
 
   const [insertedItemId, setInsertedItemId] =useState(0)
   
@@ -85,16 +87,13 @@ function AddItem() {
   
   const options1 = [
     { value: 'Kitchen Appliances', label: 'Kitchen Appliances' },
-    { value: 'Computers Accessories', label: 'Computers Accessories' },
+    { value: 'Computers & Accessories', label: 'Computers Accessories' },
     { value: 'Video-Audios', label: 'Video-Audios' },
-    { value: 'Home Appliances', label: 'Home Appliances' },
-    { value: 'Power Solutions', label: 'Power Solutions' },
     { value: 'Cameras & Accessories', label: 'Cameras & Accessories' },
     { value: 'Games & Entertainment', label: 'Games & Entertainment' },
-    { value: 'Refrigerators & Freezers', label: 'Refrigerators & Freezers' },
+    { value: 'Refrigeraters & Freezers', label: 'Refrigeraters & Freezers' },
     { value: 'AC & Coolers', label: 'AC & Coolers' },
     { value: 'Televisions & Accessories', label: 'Televisions & Accessories' },
-    { value: 'Washing Machines', label: 'Washing Machines' },
     { value: 'Heaters & Geysers', label: 'Heaters & Geysers' },
     { value: 'Microwaves & Ovens', label: 'Microwaves & Ovens' },
     { value: 'Fans', label: 'Fans' },
@@ -108,11 +107,9 @@ function AddItem() {
     { value: 'Books', label: 'Books' },
     { value: 'Magazines', label: 'Magazines' },
     { value: 'Sports Equipment', label: 'Sports Equipment' },
-    { value: 'Travel Equipment', label: 'Travel Equipment' },
     { value: 'Gym & Fitness', label: 'Gym & Fitness' },
     { value: 'Musical Instruments', label: 'Musical Instruments' },
-    { value: 'Gardening Equipment', label: 'Gardening Equipment' },
-    { value: 'Outdoor Gear', label: 'Outdoor Gear' }
+
   ];
   
 
@@ -130,17 +127,17 @@ function AddItem() {
 
   const options4 = [
     { value: 'Clothes & Coats', label: 'Clothes & Coats' },
-    { value: 'Wedding Dresses', label: 'Wedding Dresses' },
-    { value: 'Watches & Braclets', label: 'Watches & Braclets' },
+    { value: 'Wedding ', label: 'Wedding Dresses' },
+    { value: 'Watches', label: 'Watches & Braclets' },
     { value: 'Footwear', label: 'Footwear' },
-    { value: 'Jewellery & Accessories', label: 'Jewellery & Accessories' },
-    { value: 'Bags & Clutches', label: 'Bags & Clutches' },
+    { value: 'Jewellery', label: 'Jewellery & Accessories' },
+    { value: 'Bags', label: 'Bags & Clutches' },
     { value: 'Fashion Accessories', label: 'Fashion Accessories' }
   ];
   
 
   const options5 = [
-    { value: 'Kids Toys', label: 'Kids Toys' },
+    { value: 'Toys', label: 'Kids Toys' },
     { value: 'Kids Vehicles', label: 'Kids Vehicles' },
     { value: 'Kids Accessories', label: 'Kids Accessories' },
     { value: 'Kids Furniture', label: 'Kids Furniture' },
@@ -153,7 +150,7 @@ function AddItem() {
   const [typeCat, setTypeCat] = useState({value:"select", label:"Select"})
   const [mainCatVal, setMainCatval] =useState("")
   const [subCatVal, setSubCatVal] = useState({value:"select", label:"Select"})
-  const [typeCatVal, setTypeCatVal] = useState({value:"select", label:"Select"})
+  const [typeCatVal, setTypeCatVal] = useState({value:1001, label:"Select"})
   const [categoryId, setCategoryId] = useState(null)
   const [keyWords, setKeywords] =useState(null)
   const [itemType, setItemType] =useState(null)
@@ -224,6 +221,12 @@ function AddItem() {
   const [selectedImage4, setSelectedImage4] = useState(null);
   const [selectedImage5, setSelectedImage5] = useState(null);
 
+  const [img1 , setImg1] =useState(null)
+  const [img2 , setImg2] =useState(null)
+  const [img3 , setImg3] =useState(null)
+  const [img4 , setImg4] =useState(null)
+  const [img5 , setImg5] =useState(null)
+
   const [formValues, setFormValues] = useState({
     itemName: '',
     itemDescription: '',
@@ -247,6 +250,8 @@ function AddItem() {
 
   const handleImageChange = (event) => {
       const file = event.target.files[0];
+      setImg1(file)
+
       if (file) {
           const reader = new FileReader();
           reader.onload = () => {
@@ -259,6 +264,7 @@ function AddItem() {
 
   const handleImageChange2 = (event) => {
     const file = event.target.files[0];
+    setImg2(file)
     if (file) {
         const reader = new FileReader();
         reader.onload = () => {
@@ -270,7 +276,9 @@ function AddItem() {
 
 
 const handleImageChange3 = (event) => {
+
   const file = event.target.files[0];
+  setImg3(file)
   if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -283,7 +291,9 @@ const handleImageChange3 = (event) => {
 
 
 const handleImageChange4 = (event) => {
+ 
   const file = event.target.files[0];
+  setImg4(file)
   if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -296,6 +306,7 @@ const handleImageChange4 = (event) => {
 
 const handleImageChange5 = (event) => {
   const file = event.target.files[0];
+  setImg5(file)
   if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -304,6 +315,81 @@ const handleImageChange5 = (event) => {
       reader.readAsDataURL(file);
   }
 };
+
+// Function to upload Blob to Firebase Storage
+const uploadImageToFirebase = async (img) => {
+  if(img){
+    try {
+      const fileName = v4();
+      
+      // Create a reference to a storage location and specify the file name
+      const storageRef = ref(imageDB, `files/${fileName}`);
+  
+      await uploadBytes(storageRef, img);
+  
+      // Return the file name
+      console.log("File Name: ", fileName);
+      return `https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/files%2F${fileName}?alt=media&token=8d1e39a4-8dfe-40fb-9695-343d32ee59c4`;
+    
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      
+    }
+  }else {
+    return ''
+  }
+  
+};
+
+function validateRequestBody(requestBody) {
+  const {
+    itemName,
+    itemDescription,
+    itemRent,
+    itemType,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5
+  } = requestBody;
+
+  // Function to check if a value is null or undefined
+  const isNullOrUndefined = value => value === null || value === undefined;
+
+  // Check for null values except itemUsage
+  const hasNullValues = [itemName, itemDescription, itemRent, itemType, image1, image2, image3, image4, image5].some(value => isNullOrUndefined(value) && value !== formValues.itemUsage);
+
+  // Check for itemName length
+  const isItemNameValid = itemName.length > 2;
+
+  // Check for itemDescription length
+  const isItemDescriptionValid = itemDescription.length >= 30 && itemDescription.length <= 200;
+
+  // Check if itemRent is numeric
+  const isRentNumeric = !isNaN(parseFloat(itemRent)) && isFinite(itemRent);
+
+  // Check if itemType is numeric
+  const isTypeNumeric = !isNaN(parseFloat(itemType)) && isFinite(itemType);
+
+  // Final validation
+  if (hasNullValues) {
+    return "All fields except itemUsage must have a value.";
+  } else if (!isItemNameValid) {
+    return "Item name must be at least 6 characters long.";
+  } else if (!isItemDescriptionValid) {
+    return "Item description must be between 30 and 200 characters long.";
+  } else if (!isRentNumeric) {
+    return "Item rent must be a numeric value.";
+  } else if (!isTypeNumeric) {
+    return "Item type must be a numeric value.";
+  }
+
+  // All validations passed
+  return "success";
+}
+
+
 const handleSubmit = async (e) => {
 
   var Id= 0;
@@ -323,6 +409,19 @@ const handleSubmit = async (e) => {
     return;
   }
 
+  const i1= await uploadImageToFirebase(img1);
+  const i2 = await uploadImageToFirebase(img2);
+  const i3 = await uploadImageToFirebase(img3);
+  const i4 = await uploadImageToFirebase(img4);
+  const i5 = await uploadImageToFirebase(img5);
+
+  var typpe = typeCatVal.value;
+  if(typpe==="select") {
+  typpe=1001;
+  }
+
+
+
   const requestBody = {
     itemName: formValues.itemName,
     itemDescription: formValues.itemDescription,
@@ -331,10 +430,19 @@ const handleSubmit = async (e) => {
     itemLocation: formValues.itemLocation,
     itemUsage: formValues.itemUsage,
     itemKeywords: formValues.itemKeywords,
-    itemType: typeCatVal.value,
+    itemType: typpe,
     ownerId: data.userId,
+    image1 :  i1,
+    image2:   i2,
+    image3 :  i3,
+    image4 :  i4,
+    image5 :  i5
   };
 
+  const validationMessage = validateRequestBody(requestBody);
+  if(validationMessage==="success"){
+
+  console.log("RRR",requestBody)
   try {
     const response = await fetch('http://localhost:8080/item/addItem', {
       method: 'POST',
@@ -347,15 +455,8 @@ const handleSubmit = async (e) => {
     if (response.ok) {
       const data = await response.json();
       isAdded=1
-      Id= data.Id_
-      // addImage(selectedImage,  data.Id_ ,1)
-      // addImage(selectedImage2, data.Id_,2)
-      // addImage(selectedImage3, data.Id_,3)
-      // addImage(selectedImage4, data.Id_,4)
-      // addImage(selectedImage5, data.Id_,5)
-
-
-  
+      Id= data.Id_  
+     
       notifyS(`Item Inserted ${data.Id_}`)
     
     } else {
@@ -364,40 +465,15 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error('Error:', error);
   }
-
+  }else{
+    notifyF(validationMessage)
+  }
 
   
-
 
 };
 
 
-
-  async function addImage(image, itemId, v){
-    const requestBody1 = {
-      image1 : image,
-      itemId : itemId
-    };
-  
-    try {
-      const response = await fetch(`http://localhost:8080/item/addImage${v}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody1),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Success:', data);
-      } else {
-        console.error('Error:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
 
 
 

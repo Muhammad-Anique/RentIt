@@ -11,7 +11,21 @@ const getAllItems = (req, res) => {
   });
 };
 
+
+const getItemByID = (req, res) => {
+  const id = req.params.itemId; 
+  pool.query(itemQueries.getItemById, [id], (error, results) => {
+    if (error) {
+      res.status(500).json({ error: 'Error fetching Item' });
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
 const getItemByMainCat = (req, res) => {
+    console.log("Hello")
     const cat = req.params.cat; 
     var param = ""
     if(cat==="fhd"){
@@ -25,9 +39,11 @@ const getItemByMainCat = (req, res) => {
     }else if(cat==="k"){
         param = "Kids"
     }
+
+    console.log(param)
     pool.query(itemQueries.getItemsByMainCategory,[param], (error, results) => {
       if (error) {
-        res.status(500).json({ error: 'Error fetching users' });
+        res.status(500).json({ error: 'Error fetching items' });
       } else {
         res.json(results);
       }
@@ -70,13 +86,9 @@ const getItemBySubCat = (req, res) => {
       if (cat === "ka") {
         param2 = "Kitchen Appliances";
       } else if (cat === "ca") {
-        param2 = "Computers Accessories";
+        param2 = "Computers & Accessories";
       } else if (cat === "va") {
         param2 = "Video-Audios";
-      } else if (cat === "ha") {
-        param2 = "Home Appliances";
-      } else if (cat === "ps") {
-        param2 = "Power Solutions";
       } else if (cat === "caa") {
         param2 = "Cameras & Accessories";
       } else if (cat === "ge") {
@@ -87,8 +99,6 @@ const getItemBySubCat = (req, res) => {
         param2 = "AC & Coolers";
       } else if (cat === "ta") {
         param2 = "Televisions & Accessories";
-      } else if (cat === "wm") {
-        param2 = "Washing Machines";
       } else if (cat === "hg") {
         param2 = "Heaters & Geysers";
       } else if (cat === "mo") {
@@ -107,15 +117,15 @@ const getItemBySubCat = (req, res) => {
       if (cat === "cc") {
         param2 = "Clothes & Coats";
       } else if (cat === "wd") {
-        param2 = "Wedding Dresses";
+        param2 = "Wedding ";
       } else if (cat === "wb") {
-        param2 = "Watches & Braclets";
+        param2 = "Watches";
       } else if (cat === "fw") {
         param2 = "Footwear";
       } else if (cat === "ja") {
-        param2 = "Jewellery & Accessories";
+        param2 = "Jewellery";
       } else if (cat === "bc") {
-        param2 = "Bags & Clutches";
+        param2 = "Bags";
       } else if (cat === "fa") {
         param2 = "Fashion Accessories";
       }
@@ -128,16 +138,10 @@ const getItemBySubCat = (req, res) => {
         param2 = "Magazines";
       } else if (cat === "se") {
         param2 = "Sports Equipment";
-      } else if (cat === "te") {
-        param2 = "Travel Equipment";
       } else if (cat === "gf") {
         param2 = "Gym & Fitness";
       } else if (cat === "mi") {
         param2 = "Musical Instruments";
-      } else if (cat === "ge") {
-        param2 = "Gardening Equipment";
-      } else if (cat === "og") {
-        param2 = "Outdoor Gear";
       }
     }
     else if (main === "k") {
@@ -160,7 +164,7 @@ const getItemBySubCat = (req, res) => {
     }
     
 
-    console.log(param1,param2)
+   
     pool.query(itemQueries.getItemsBySubCategory,[param1, param2], (error, results) => {
       if (error) {
         res.status(500).json({ error: 'Error fetching users' });
@@ -176,7 +180,11 @@ const getItemBySubCat = (req, res) => {
 const getTypeIdAndType= (req, res) => {
   const subCate = req.params.subcat; 
   console.log(subCate)
-  const param = subCate.replace(/-/g, ' ');
+  var param = subCate
+  if(subCate!=="Video-Audios"){
+    param = subCate.replace(/-/g, ' ');
+  }
+ 
   console.log(param)
   pool.query(itemQueries.getTypeIdAndType,[param], (error, results) => {
     if (error) {
@@ -187,103 +195,6 @@ const getTypeIdAndType= (req, res) => {
     }
   });
 };
-
-const addImage1 = (req, res) => {
-  const { itemId, image1 } = req.body;
-  if (!itemId || !image1) {
-    return res.status(400).json({ error: 'itemId and image1 are required' });
-  }
-  pool.query(addItemQueries.updateImage1, [image1, itemId], (error, results) => {
-    if (error) {
-      console.error('Error updating image1:', error);
-      res.status(500).json({ error: 'Error updating image1' });
-    } else {
-      console.log('Image1 updated successfully');
-      res.status(200).json({ message: 'Image1 updated successfully' });
-    }
-  });
-
-}
-
-
-
-const addImage2 = (req, res) => {
-  const { itemId, image1 } = req.body;
-  if (!itemId || !image1) {
-    return res.status(400).json({ error: 'itemId and image1 are required' });
-  }
-  pool.query(addItemQueries.updateImage2, [image1, itemId], (error, results) => {
-    if (error) {
-      console.error('Error updating image2:', error);
-      res.status(500).json({ error: 'Error updating image1' });
-    } else {
-      console.log('Image1 updated successfully');
-      res.status(200).json({ message: 'Image1 updated successfully' });
-    }
-  });
-
-}
-
-
-
-const addImage3 = (req, res) => {
-  const { itemId, image1 } = req.body;
-  if (!itemId || !image1) {
-    return res.status(400).json({ error: 'itemId and image1 are required' });
-  }
-  pool.query(addItemQueries.updateImage3, [image1, itemId], (error, results) => {
-    if (error) {
-      console.error('Error updating image2:', error);
-      res.status(500).json({ error: 'Error updating image1' });
-    } else {
-      console.log('Image1 updated successfully');
-      res.status(200).json({ message: 'Image1 updated successfully' });
-    }
-  });
-
-}
-
-
-
-
-const addImage4 = (req, res) => {
-  const { itemId, image1 } = req.body;
-  if (!itemId || !image1) {
-    return res.status(400).json({ error: 'itemId and image1 are required' });
-  }
-  pool.query(addItemQueries.updateImage4, [image1, itemId], (error, results) => {
-    if (error) {
-      console.error('Error updating image2:', error);
-      res.status(500).json({ error: 'Error updating image1' });
-    } else {
-      console.log('Image1 updated successfully');
-      res.status(200).json({ message: 'Image1 updated successfully' });
-    }
-  });
-
-}
-
-
-
-
-const addImage5 = (req, res) => {
-  const { itemId, image1 } = req.body;
-  if (!itemId || !image1) {
-    return res.status(400).json({ error: 'itemId and image1 are required' });
-  }
-  pool.query(addItemQueries.updateImage5, [image1, itemId], (error, results) => {
-    if (error) {
-      console.error('Error updating image2:', error);
-      res.status(500).json({ error: 'Error updating image1' });
-    } else {
-      console.log('Image1 updated successfully');
-      res.status(200).json({ message: 'Image1 updated successfully' });
-    }
-  });
-
-}
-
-
 
 const addItemWithDetails = (req, res) => {
   var Id = 0;
@@ -307,11 +218,16 @@ const addItemWithDetails = (req, res) => {
     itemUsageDetails,
     itemKeywords,
     itemType,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5
   
   } = req.body;
 
 
-  console.log(req.body)
+  console.log("body:", req.body)
 
   pool.query(
     addItemQueries.insertItem,
@@ -319,8 +235,8 @@ const addItemWithDetails = (req, res) => {
       Id,
       itemName,
       itemDescription,
-      isAvailable,
 
+      isAvailable,
       itemCondition,
       ownerId,
       itemLikes,
@@ -331,13 +247,13 @@ const addItemWithDetails = (req, res) => {
 
       itemUsageDetails,
       itemType,
-      null,
+      image1,
 
-      null,
-      null,
-      null,
+      image2,
+      image3,
+      image4,
 
-      null,
+      image5,
       itemKeywords,
     ],
     (error, results) => {
@@ -360,12 +276,8 @@ module.exports = {
     getItemBySubCat,
     getTypeIdAndType,
     addItemWithDetails,
-    addImage1,
-    addImage2,
-    addImage3,
-    addImage4,
-    addImage5
-   
+    getItemByID
+  
   };
   
 

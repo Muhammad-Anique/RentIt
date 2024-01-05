@@ -33,6 +33,7 @@ else{
 
   useEffect(() => {
     // Function to make the GET API call
+  
     const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:8080/users/${username_}`); 
@@ -50,7 +51,11 @@ else{
       }
     };
 
-    fetchData(); 
+    if(username_){
+      fetchData(); 
+      
+    }
+   
 
   }, [username_]); 
 

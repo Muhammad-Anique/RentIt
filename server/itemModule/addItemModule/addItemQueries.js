@@ -21,14 +21,14 @@ itemCategory,
 image1,
 image2,
 image3, 
-
 image4,
 image5,
+
 keywords
 
 )
 VALUES
-(?,?,?,?,?,?,?,CURDATE(),?,?,?,?,?, ?,?,?,?,? ,?);
+(?,?,?,?,?,?,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?);
 `
 
 
@@ -72,14 +72,13 @@ const updateImage5 = `
 `;
 
 
+
+
 module.exports = {
    insertItem,
    getId,
-   updateImage1,
-   updateImage2,
-   updateImage3,
-   updateImage4,
-   updateImage5
+   
+ 
    
 };
    

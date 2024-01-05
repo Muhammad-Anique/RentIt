@@ -1,5 +1,8 @@
 import React from 'react'
 import '../../Assets/fonts.css'
+import { Link } from 'react-router-dom';
+
+
 
 function Item(props) {
   var Item = {
@@ -14,9 +17,9 @@ function Item(props) {
  
   console.log(".....",Item)
   return (
-    <div className='w-[250px] h-[300px] hover:scale-105 ease-in-out duration-200  flex flex-col cursor-pointer' >
+    <Link to={`/Category/Id/${Item.itemCategory}/Item/${Item.itemId}`} className='w-[250px] h-[300px] hover:scale-105 ease-in-out duration-200  flex flex-col cursor-pointer' >
        <div class=' rounded-2xl w-full h-[70%] overflow-hidden'>
-            <img src="https://img.mensxp.com/media/content/2015/Dec/outrageous-reasons-why-clothes-from-high-street-brands-are-so-cheap980-1449570771.jpg" 
+            <img src={Item.image1}
                 class='object-cover w-full h-full' 
                 alt="" />
         </div>
@@ -29,7 +32,7 @@ function Item(props) {
             <p className='text-[8px] text-[#4b4b4b] mt-[1.5px]'>{Item.dateCreated}</p>
             <p className='font-bold text-xs text-[#295CD3] mt-1'> Rs. {Item.itemRent}/-</p>
         </div>
-    </div>
+    </Link>
   )
 }
 
