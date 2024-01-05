@@ -17,6 +17,8 @@ import ItemDetailPage from './Components/Item/ItemDetailPage';
 import store from './store/store.js'
 import { Provider } from 'react-redux';
 import AddItem from './Components/Item/AddItem.jsx';
+import TermsAndConditions from './Components/Terms/TermsAndConditions.jsx';
+import HowItWorks from './Components/HowItWorks/HowItWorks.jsx';
 
 
 const router = createBrowserRouter([
@@ -31,8 +33,15 @@ const router = createBrowserRouter([
       {
         path:"/about",
         element:<About/>
-
+      }, 
+      {
+        path:"/howitworks",
+        element:<HowItWorks/>
       },      
+      {
+        path:"/termsandcondition",
+        element:<TermsAndConditions/>
+      },           
       {
         path:"/add",
         element:<AddItem/>
@@ -53,7 +62,7 @@ const router = createBrowserRouter([
         path:"/home/:id/about",
         element:<About/>
 
-      },      
+      },  
       {
         path:"/home/:id/add",
         element:<AddItem/>
@@ -80,8 +89,16 @@ const router = createBrowserRouter([
       },
       {
         path:"/Category/Id/:categoryId/Item/:itemId",
-        element:<ItemDetailPage/>
-      }
+        element:<ItemDetailPage isCity={0} isQuery={0} isCategory={1}/>
+      },
+      {
+        path:"/Category/city/:city",
+        element:<CategoryPage isCity={1} isQuery={0} isCategory={0}/>
+      },
+      {
+        path:"/Category/query/:query",
+        element:<CategoryPage isCity={0} isQuery={1} isCategory={0}/>
+      },
     ]
   
   },

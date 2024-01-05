@@ -41,19 +41,30 @@ WHERE items.location LIKE ?
 `;
 
 
-
-
-const getItemsByQuery= `
-SELECT items.*, 
-       itemcategories.mainCategory, 
-       itemcategories.subCategory, 
-       itemcategories.type
- ]
+const getItemsByCity = `SELECT items.*, 
+itemcategories.mainCategory, 
+itemcategories.subCategory, 
+itemcategories.type
 FROM items
 JOIN itemcategories ON items.itemCategory = itemcategories.categoryID
-JOIN itemkeywords ON items.itemId = itemkeywords.itemId
-WHERE items.name LIKE ?
-`;
+WHERE LOWER(items.itemLocation) LIKE LOWER( ? );`
+
+
+const getItemBySearchQuery = `SELECT items.*, 
+itemcategories.mainCategory, 
+itemcategories.subCategory, 
+itemcategories.type
+FROM items
+JOIN itemcategories ON items.itemCategory = itemcategories.categoryID
+WHERE CONCAT(
+ LOWER(items.itemName),
+ LOWER(itemcategories.mainCategory),
+ LOWER(itemcategories.subCategory),
+ LOWER(itemcategories.type),
+ LOWER(items.itemLocation),
+ LOWER(items.itemDescription)
+) LIKE LOWER( ? );`
+
 
 
 
@@ -84,7 +95,8 @@ module.exports = {
  getItemsByMainCategory,
  getAllItems,
  getItemsByLocation,
- getItemsByQuery,
  getTypeIdAndType,
- getItemById
+ getItemById,
+ getItemsByCity,
+ getItemBySearchQuery
 };

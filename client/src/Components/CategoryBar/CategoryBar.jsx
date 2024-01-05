@@ -43,7 +43,7 @@ function CategoryBar(props) {
     <div className=' w-full h-[95px]  border-b-[#eeeeee] border-b-2 flex flex-row items-center justify-center shadow-sm gap-7 px-6  mt-[80px]'>
 
       {
-        props.Id==999999  ? (<div className='w-full scroll-container overflow-y-hidden h-full py-5 flex justify-center items-center flex-row gap-5'>
+        mainCategory==='a'  ? (<div className='w-full scroll-container overflow-y-hidden h-full py-5 flex justify-center items-center flex-row gap-5'>
     
     <Link to='/' className='hover:text-[#295cd3] mt-2'>
        <div className='flex flex-row gap-3 items-center'>
@@ -91,7 +91,7 @@ function CategoryBar(props) {
        <span class="material-symbols-outlined">
        stroller
        </span>
-         <p>Furniture & Home Decor</p>
+         <p>Kids</p>
        </div>
        </Link>
       

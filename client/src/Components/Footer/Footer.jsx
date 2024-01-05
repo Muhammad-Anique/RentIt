@@ -1,58 +1,60 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 function Footer() {
   return (
    
 
-    <div className='w-full h-[500px] bg-[#f5f5f5] flex flex-col justify-between px-[200px] py-[60px]'>
+    <div className='w-full h-[340px] bg-[#f5f5f5] flex flex-col justify-between px-[200px] py-[60px]'>
 
     <div className='w-full flex flex-row items-baseline justify-between'>
         
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>RentIt</p>
-        <a className='text-sm mt-2' href="">Home</a>
-        <a className='text-sm'  href="">About</a>
-        <a className='text-sm' href="">Contact</a>
-        <a className='text-sm' href="">Terms & Condition</a>
-        <a className='text-sm' href="">Privacy</a>
+        <Link to='/' className='text-sm mt-2' >Home</Link>
+        <Link to='/about' className='text-sm'  >About</Link>
+        <Link to='/contact' className='text-sm' >Contact</Link>
+        <Link to='/termsandcondition' className='text-sm' >Terms & Condition</Link>
+        <Link to='/privacy' className='text-sm' >Privacy</Link>
        
     </div>
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>Locations</p>
-        <a className='text-sm mt-2' href="">Lahore</a>
-        <a className='text-sm' href="">Karachi</a>
-        <a className='text-sm' href="">Islamabad</a>
-        <a  className='text-sm' href="">Multan</a>
-        <a  className='text-sm' href="">Peshawar</a>
+        <Link to='/items/getByCity/Lhr'  className='text-sm mt-2' >Lahore</Link>
+        <Link to='/items/getByCity/Khi'  className='text-sm' >Karachi</Link>
+        <Link to='/items/getByCity/Isl'  className='text-sm' >Islamabad</Link>
+        <Link to='/items/getByCity/Mlt' className='text-sm' >Multan</Link>
+        <Link to='/items/getByCity/Psw' className='text-sm' >Peshawar</Link>
     </div>
    
     <div className='flex flex-col justify-center'>
+
         <p className='font-bold'>Categories</p>
-        <a className='text-sm mt-2'  href="">Electronic & Home Apliances</a>
-        <a className='text-sm'  href="">Books, Hobbies & Sports</a>
-        <a className='text-sm'  href="">Fashion & Beauty</a>
-        <a className='text-sm'  href="">Furniture & Home Decor</a>
-        <a  className='text-sm' href="">Kids & BabyGear</a>
+        <Link to='/Category/Id/eha/a/a' className='text-sm mt-2' >Electronic & Home Apliances</Link>
+        <Link to='/Category/Id/bhs/a/a'  className='text-sm' >Books, Hobbies & Sports</Link>
+        <Link to='/Category/Id/fb/a/a'  className='text-sm' >Fashion & Beauty</Link>
+        <Link to='/Category/Id/fhd/a/a'  className='text-sm' >Furniture & Home Decor</Link>
+        <Link to='/Category/Id/k/a/a'   className='text-sm' >Kids </Link>
        
     </div>
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>Explore</p>
-        <a className='text-sm mt-2'  href="">Camera Equipment</a>
-        <a className='text-sm'  href="">Sports Equipment</a>
-        <a className='text-sm'  href="">Baby Gear</a>
-        <a className='text-sm'  href="">Books & Magazines</a>
-        <a  className='text-sm' href="">Clothes</a>
+        <a className='text-sm mt-2'  >Camera Equipment</a>
+        <a className='text-sm' >Sports Equipment</a>
+        <a className='text-sm'  >Baby Gear</a>
+        <a className='text-sm'   >Books & Magazines</a>
+        <a  className='text-sm' >Clothes</a>
        
     </div>
 
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>FYP Details</p>
-        <a className='text-sm mt-2'  href=""> Muhammad Anique</a>
-        <a className='text-sm'  href="">Kaashaan Ali Karim</a>
-        <a className='text-sm'  href="">Hammad Zahoor</a>
-        <a className='text-sm'  href="">FYP-1 Prototype</a>
-  
-       
+        <a className='text-sm mt-2'  > Muhammad Anique</a>
+        <a className='text-sm'  >Kaashaan Ali Karim</a>
+        <a className='text-sm'  >Hammad Zahoor</a>
+        <a className='text-sm' >FYP-1 Prototype</a>
+
     </div>
 
     </div>

@@ -270,13 +270,45 @@ const addItemWithDetails = (req, res) => {
 };
 
 
+const getItemByCity = (req, res) => {
+  const city = req.params.city; 
+  const param =`%${city}%`
+  console.log(city)
+  pool.query(itemQueries.getItemsByCity, [param], (error, results) => {
+    if (error) {
+      console.log(error)
+      res.status(500).json({ error: 'Error fetching Item' });
+    } else {
+
+      res.json(results);
+    }
+  });
+};
+
+const getItemBySearchQuery = (req, res) => {
+  const query = req.params.query; 
+  const query_ = query.replace(/-/g, ' ');
+  const param =`%${query_}%`
+  pool.query(itemQueries.getItemBySearchQuery, [param], (error, results) => {
+    if (error) {
+      console.log("rr" ,error)
+      res.status(500).json({ error: 'Error fetching Item' });
+      
+    } else {
+      res.json(results);
+    }
+  });
+};
+
 module.exports = {
     getAllItems,
     getItemByMainCat,
     getItemBySubCat,
     getTypeIdAndType,
     addItemWithDetails,
-    getItemByID
+    getItemByID,
+    getItemByCity,
+    getItemBySearchQuery
   
   };
   

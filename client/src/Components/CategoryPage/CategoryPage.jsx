@@ -5,21 +5,28 @@ import { useParams } from 'react-router-dom'
 
 
 
-function CategoryPage() {
+function CategoryPage(props) {
     
-    let {mainCategory,subCategory, type } = useParams();
+    let {mainCategory,subCategory, type,city, query } = useParams();
     console.log("in idp M = ", mainCategory," S =  ", subCategory, " T = ", type)
 
     const [data, setData] = useState([]);
 
     var apiEndpoint = ''
-    if(mainCategory!=="a" && subCategory==="a"){
+    if(mainCategory!=="a" && subCategory==="a" && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
       apiEndpoint = `http://localhost:8080/item/getbycategory/${mainCategory}`;
 
     }
-    else if(mainCategory!=="a" && subCategory!=="a"){
-      apiEndpoint = `http://localhost:8080/item/getbysubcategory/${mainCategory}/${subCategory}`;
-
+    else if(mainCategory!=="a" && subCategory!=="a" && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
+      apiEndpoint = `http://localhost:8080/item/getbysubcategory/${mainCategory}/${subCategory}`
+    }
+    else if(mainCategory==='a' && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
+      apiEndpoint = `http://localhost:8080/item/getAll`
+    }
+    else if (props.isCity===0 ){
+      apiEndpoint = `http://localhost:8080/item/city/${city}`
+    } else if (props.isQuery===1 ){
+      apiEndpoint = `http://localhost:8080/item/query/${query}`
     }
     
 

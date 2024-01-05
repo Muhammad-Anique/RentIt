@@ -7,8 +7,9 @@ router.get('/getbycategory/:cat', itemController.getItemByMainCat);
 router.get('/getbysubcategory/:main/:cat', itemController.getItemBySubCat);
 router.get('/getType/:subcat', itemController.getTypeIdAndType);
 router.post('/addItem/', itemController.addItemWithDetails);
-
 router.get('/:itemId', itemController.getItemByID)
+router.get('/city/:city', itemController.getItemByCity)
+router.get('/query/:query', itemController.getItemBySearchQuery)
 
 
 module.exports = router;
