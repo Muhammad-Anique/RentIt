@@ -1,5 +1,6 @@
 const pool = require('../dbConfig');
 const itemQueries = require('../itemModule/searchItemModule/filterItemQueries'); // Adjust path if needed
+const addItemQueries =require('../itemModule/addItemModule/addItemQueries')
 const getAllItems = (req, res) => {
   pool.query(itemQueries.getAllItems, (error, results) => {
     if (error) {
@@ -187,129 +188,170 @@ const getTypeIdAndType= (req, res) => {
   });
 };
 
+const addImage1 = (req, res) => {
+  const { itemId, image1 } = req.body;
+  if (!itemId || !image1) {
+    return res.status(400).json({ error: 'itemId and image1 are required' });
+  }
+  pool.query(addItemQueries.updateImage1, [image1, itemId], (error, results) => {
+    if (error) {
+      console.error('Error updating image1:', error);
+      res.status(500).json({ error: 'Error updating image1' });
+    } else {
+      console.log('Image1 updated successfully');
+      res.status(200).json({ message: 'Image1 updated successfully' });
+    }
+  });
+
+}
+
+
+
+const addImage2 = (req, res) => {
+  const { itemId, image1 } = req.body;
+  if (!itemId || !image1) {
+    return res.status(400).json({ error: 'itemId and image1 are required' });
+  }
+  pool.query(addItemQueries.updateImage2, [image1, itemId], (error, results) => {
+    if (error) {
+      console.error('Error updating image2:', error);
+      res.status(500).json({ error: 'Error updating image1' });
+    } else {
+      console.log('Image1 updated successfully');
+      res.status(200).json({ message: 'Image1 updated successfully' });
+    }
+  });
+
+}
+
+
+
+const addImage3 = (req, res) => {
+  const { itemId, image1 } = req.body;
+  if (!itemId || !image1) {
+    return res.status(400).json({ error: 'itemId and image1 are required' });
+  }
+  pool.query(addItemQueries.updateImage3, [image1, itemId], (error, results) => {
+    if (error) {
+      console.error('Error updating image2:', error);
+      res.status(500).json({ error: 'Error updating image1' });
+    } else {
+      console.log('Image1 updated successfully');
+      res.status(200).json({ message: 'Image1 updated successfully' });
+    }
+  });
+
+}
+
+
+
+
+const addImage4 = (req, res) => {
+  const { itemId, image1 } = req.body;
+  if (!itemId || !image1) {
+    return res.status(400).json({ error: 'itemId and image1 are required' });
+  }
+  pool.query(addItemQueries.updateImage4, [image1, itemId], (error, results) => {
+    if (error) {
+      console.error('Error updating image2:', error);
+      res.status(500).json({ error: 'Error updating image1' });
+    } else {
+      console.log('Image1 updated successfully');
+      res.status(200).json({ message: 'Image1 updated successfully' });
+    }
+  });
+
+}
+
+
+
+
+const addImage5 = (req, res) => {
+  const { itemId, image1 } = req.body;
+  if (!itemId || !image1) {
+    return res.status(400).json({ error: 'itemId and image1 are required' });
+  }
+  pool.query(addItemQueries.updateImage5, [image1, itemId], (error, results) => {
+    if (error) {
+      console.error('Error updating image2:', error);
+      res.status(500).json({ error: 'Error updating image1' });
+    } else {
+      console.log('Image1 updated successfully');
+      res.status(200).json({ message: 'Image1 updated successfully' });
+    }
+  });
+
+}
+
 
 
 const addItemWithDetails = (req, res) => {
-  // const {
-  //   itemName,
-  //   itemDescription,
-  //   isAvailable,
-  //   itemCondition,
-  //   OwnerId,
-  //   itemLikes,
-  //   itemRent,
-  //   itemLocation,
-  //   itemTermsConditions,
-  //   itemUsageDetails,
-  //   itemCategory,
-  //   itemKeyWords,
-  //   itemImages,
-  // } = req.body;
-
-  pool.getConnection((error, connection) => {
-
+  var Id = 0;
+  pool.query(`SELECT (MAX(itemId)+1) as id FROM rentitschema.items;`,(error, results) => {
     if (error) {
-      console.error('Error acquiring connection:', error);
-      res.status(500).json({ error: 'Error acquiring connection' });
+      res.status(500).json({ error: 'Error inserting item' });
     } else {
-      // Start transaction
-      connection.beginTransaction((err) => {
-        if (err) {
-          console.error('Error beginning transaction:', err);
-          res.status(500).json({ error: 'Error beginning transaction' });
-        } else {
-          
-          connection.query('SELECT MAX(itemId) + 1 AS nextId FROM items;', (error, results) => {
-            if (error) {
-              console.error('Error retrieving next itemId:', error);
-            } else {
-              const nextItemId = results[0].nextId;
-              console.log('Next available itemId:', nextItemId);
-               // // Insert into items table
-                connection.query(
-                  queries.insertItem,
-                  [
-                    nextItemId,
-                    itemName,
-                    itemDescription,
-                    isAvailable,
-                    itemCondition,
-                    OwnerId,
-                    itemLikes,
-                    itemRent,
-                    itemLocation,
-                    itemTermsConditions,
-                    itemUsageDetails,
-                    itemCategory,
-                  ],
-                  (insertError, results) => {
-                    if (insertError) {
-                      connection.rollback(() => {
-                        console.error('Error inserting item:', insertError);
-                        res.status(500).json({ error: 'Error inserting item' });
-                      });
-                    } else {
-                      const itemId = results.insertId; // Get the inserted itemId
-                      res.status(200).json({"Id": nextItemId})
-                      // // Insert into itemkeywords table
-                      // connection.query(
-                      //   queries.insertKeywords,
-                      //   [itemId, ...itemKeyWords],
-                      //   (keywordError) => {
-                      //     if (keywordError) {
-                      //       connection.rollback(() => {
-                      //         console.error('Error inserting keywords:', keywordError);
-                      //         res.status(500).json({ error: 'Error inserting keywords' });
-                      //       });
-                      //     } else {
-                      //       // Insert into imageset table
-                      //       connection.query(
-                      //         queries.insertImages,
-                      //         [itemId, ...itemImages],
-                      //         (imageError) => {
-                      //           if (imageError) {
-                      //             connection.rollback(() => {
-                      //               console.error('Error inserting images:', imageError);
-                      //               res.status(500).json({ error: 'Error inserting images' });
-                      //             });
-                      //           } else {
-                      //             // Commit the transaction if all queries succeed
-                      //             connection.commit((commitError) => {
-                      //               if (commitError) {
-                      //                 connection.rollback(() => {
-                      //                   console.error('Error committing transaction:', commitError);
-                      //                   res.status(500).json({ error: 'Error committing transaction' });
-                      //                 });
-                      //               } else {
-                      //                 // All queries succeeded
-                      //                 res.json({ message: 'Item added successfully' });
-                      //               }
-                      //             });
-                      //           }
-                      //         }
-                      //       );
-                      //     }
-                      //   }
-                      // );
-                    }
-                  }
-                );
-
-
-
-
-             
-            }
-          });
-          
-        }
-      });
-      // Release the connection
-      connection.release();
+      Id= results[0].id;
     }
-  });
-};
+  })
+  const isAvailable =1;
+  const itemLikes = 0;
+  const {
+    itemName,
+    itemDescription,
+    itemCondition,
+    ownerId,
+    itemRent,
+    itemLocation,
+    itemTermsConditions,
+    itemUsageDetails,
+    itemKeywords,
+    itemType,
+  
+  } = req.body;
 
+
+  console.log(req.body)
+
+  pool.query(
+    addItemQueries.insertItem,
+    [
+      Id,
+      itemName,
+      itemDescription,
+      isAvailable,
+
+      itemCondition,
+      ownerId,
+      itemLikes,
+
+      itemRent,
+      itemLocation,
+      itemTermsConditions,
+
+      itemUsageDetails,
+      itemType,
+      null,
+
+      null,
+      null,
+      null,
+
+      null,
+      itemKeywords,
+    ],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: 'Error inserting item' });
+        console.log(error)
+      } else {
+        console.log(results[0]);
+        console.log("Sta")
+        res.status(200).json({ success: 'Item inserted successfully', Id_:Id });
+      }
+    }
+  );
+};
 
 
 module.exports = {
@@ -318,6 +360,11 @@ module.exports = {
     getItemBySubCat,
     getTypeIdAndType,
     addItemWithDetails,
+    addImage1,
+    addImage2,
+    addImage3,
+    addImage4,
+    addImage5
    
   };
   

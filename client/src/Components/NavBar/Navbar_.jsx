@@ -323,7 +323,7 @@ else{
    <div className='w-[20%]  flex items-center justify-end gap-4'>
 
 
-        <Link to="/add" className="button-cover" role="button"><span className="text">Lend</span><span>Items!</span></Link>
+        <Link to={`/home/${username_}/add`} className="button-cover" role="button"><span className="text">Lend</span><span>Items!</span></Link>
         <button onClick={()=>{isClikedUM()}} className='text-[#4b4b4b] scale-125 hover:text-[#295cd3]  '>
         <span class="material-symbols-outlined">
         account_circle

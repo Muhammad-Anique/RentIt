@@ -11,6 +11,11 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import Select from 'react-select'
 
+import { ToastContainer , toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useSelector } from 'react-redux';
+import { selectUsername, selectPassword, selectIsAuthenticated } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
 
 
 
@@ -19,7 +24,52 @@ import Select from 'react-select'
 
 function AddItem() {
 
+  const [insertedItemId, setInsertedItemId] =useState(0)
   
+  const username = useSelector(selectUsername);
+  const password = useSelector(selectPassword);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const [data, setData] =useState()
+  const [username_, setUsername_] =useState(username)
+
+
+  const notifyF = (msg) => {
+    toast.error(msg, {
+      position : toast.POSITION.TOP_RIGHT,  // Change position to BOTTOM_RIGHT
+      autoClose: 3000,
+    });
+  };
+  const notifyS = (msg) => {
+    toast.success(msg, {
+      position: toast.POSITION.TOP_RIGHT, // Set the position of the toast
+      autoClose: 3000, // Set auto-close time in milliseconds
+    });
+  };
+
+  
+  useEffect(() => {
+    // Function to make the GET API call
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/users/${username_}`); 
+        if (response.ok) {
+          const result = await response.json();
+          setData(result); 
+          console.log("INADD ADD ADD = > ", result)
+          console.log("Errror tis there")
+          console.log(result)
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); 
+
+  }, [username_]); 
+
 
 
 
@@ -127,7 +177,6 @@ function AddItem() {
  
   useEffect(()=>{
     setSubCatVal({value:"select", label:"Select"})
-   
     if(mainCatVal==="Electronics & Home Appliances"){
       setSubCat(options1)
     }else if(mainCatVal==="Books, Hobbies & Sports"){
@@ -141,9 +190,9 @@ function AddItem() {
     }
     else if(mainCatVal==="Kids"){
       setSubCat(options5)
-    }else{
+    }
+    else{
       setSubCat({value:"select", label:"select"})
-
     }
   },[mainCatVal])
 
@@ -206,6 +255,8 @@ function AddItem() {
           reader.readAsDataURL(file);
       }
   };
+
+
   const handleImageChange2 = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -216,6 +267,8 @@ function AddItem() {
         reader.readAsDataURL(file);
     }
 };
+
+
 const handleImageChange3 = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -226,6 +279,9 @@ const handleImageChange3 = (event) => {
       reader.readAsDataURL(file);
   }
 };
+
+
+
 const handleImageChange4 = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -236,6 +292,8 @@ const handleImageChange4 = (event) => {
       reader.readAsDataURL(file);
   }
 };
+
+
 const handleImageChange5 = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -246,14 +304,101 @@ const handleImageChange5 = (event) => {
       reader.readAsDataURL(file);
   }
 };
+const handleSubmit = async (e) => {
 
-function handleSubmit(){
+  var Id= 0;
+  var isAdded = 0;
   
+   
   console.log("the data is ready ==> ==>")
   console.log(formValues)
   console.log(typeCatVal.value)
+  console.log(selectedImage)
+  console.log()
+  const requiredFields = ['itemName', 'itemDescription', 'itemCondition', 'itemRent', 'itemLocation'];
+  const hasNullValues = requiredFields.some((field) => formValues[field] === null || formValues[field] === '');
 
- }
+  if (hasNullValues) {
+    console.error('Please fill in all required fields');
+    return;
+  }
+
+  const requestBody = {
+    itemName: formValues.itemName,
+    itemDescription: formValues.itemDescription,
+    itemCondition: formValues.itemCondition,
+    itemRent: formValues.itemRent,
+    itemLocation: formValues.itemLocation,
+    itemUsage: formValues.itemUsage,
+    itemKeywords: formValues.itemKeywords,
+    itemType: typeCatVal.value,
+    ownerId: data.userId,
+  };
+
+  try {
+    const response = await fetch('http://localhost:8080/item/addItem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      isAdded=1
+      Id= data.Id_
+      // addImage(selectedImage,  data.Id_ ,1)
+      // addImage(selectedImage2, data.Id_,2)
+      // addImage(selectedImage3, data.Id_,3)
+      // addImage(selectedImage4, data.Id_,4)
+      // addImage(selectedImage5, data.Id_,5)
+
+
+  
+      notifyS(`Item Inserted ${data.Id_}`)
+    
+    } else {
+      console.error('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+
+  
+
+
+};
+
+
+
+  async function addImage(image, itemId, v){
+    const requestBody1 = {
+      image1 : image,
+      itemId : itemId
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:8080/item/addImage${v}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody1),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Success:', data);
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
 
 
   return (
@@ -442,7 +587,7 @@ function handleSubmit(){
        
      
       </div>
-
+      <ToastContainer position="top-right" autoClose={3000} />
     
     </div>     
     </div>

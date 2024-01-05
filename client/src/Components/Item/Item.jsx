@@ -10,7 +10,6 @@ function Item(props) {
   };
   if(props.item_){
     Item = props.item_
-
   }
  
   console.log(".....",Item)

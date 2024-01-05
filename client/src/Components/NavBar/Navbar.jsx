@@ -55,7 +55,7 @@ function Navbar(props) {
     
     <div className='flex flex-row gap-2'> 
     {data ? (<div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>
-        <Link to= "/add" className='text-center font-bold'>Lend Items</Link>
+        <Link to={`/home/${username_}/add`} className='text-center font-bold'>Lend Items</Link>
     </div>) : (<div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>
         <p className='text-center font-bold'>How It Works</p>
     </div>)}

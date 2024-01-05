@@ -1,57 +1,85 @@
 const insertItem = `
 INSERT INTO rentitschema.items
-(itemId,
+(
+itemId,
 itemName,
 itemDescription,
 isAvailable,
+
 itemCondition,
 OwnerId,
 itemLikes,
+
 dateCreated,
 itemRent,
 itemLocation,
+
 itemTermsConditions,
 itemUsageDetails,
-itemCategory)
+itemCategory,
+
+image1,
+image2,
+image3, 
+
+image4,
+image5,
+keywords
+
+)
 VALUES
-(?,?,?,?,?,?,?,CURDATE(),?,?,?,?,?);
+(?,?,?,?,?,?,?,CURDATE(),?,?,?,?,?, ?,?,?,?,? ,?);
 `
 
 
-const getId = `SELECT MAX(itemId) + 1 FROM rentitschema.items;`
-
-const insertKeywords  =`
-INSERT INTO rentitschema.itemkeywords
-(itemID,
-itemKeyWord1,
-itemKeyWord2,
-itemKeyWord3,
-itemKeyWord4,
-itemKeyWord5,
-itemKeyWord6,
-itemKeyWord7)
-VALUES
-(?,?,?,?,?,?,?,?);
-`
+const getId = `SELECT (MAX(itemId) + 1) as id FROM rentitschema.items;`
 
 
-const insertImages = `INSERT INTO rentitschema.imageset
-(itemID,
-Image1,
-Image2,
-Image3,
-Image4,
-Image5)
-VALUES
-(?,?,?,?,?,?)
-`
+
+
+const updateImage1 = `
+  UPDATE items
+  SET image1 = ?
+  WHERE itemId = ?;
+`;
+
+
+const updateImage2 = `
+  UPDATE items
+  SET image2 = ?
+  WHERE itemId = ?;
+`;
+
+
+const updateImage3 = `
+  UPDATE items
+  SET image3 = ?
+  WHERE itemId = ?;
+`;
+
+
+const updateImage4 = `
+  UPDATE items
+  SET image4 = ?
+  WHERE itemId = ?;
+`;
+
+
+const updateImage5 = `
+  UPDATE items
+  SET image5 = ?
+  WHERE itemId = ?;
+`;
+
 
 module.exports = {
    insertItem,
    getId,
-   insertKeywords,
-   insertImages
+   updateImage1,
+   updateImage2,
+   updateImage3,
+   updateImage4,
+   updateImage5
    
-   
-   };
+};
    
