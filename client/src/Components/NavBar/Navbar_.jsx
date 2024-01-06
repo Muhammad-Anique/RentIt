@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import logo from  '../../Assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import '../../Assets/button.css'
 import { useSelector } from 'react-redux';
 import { selectUsername, selectPassword, selectIsAuthenticated } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
 
 
-function Navbar_() {
 
+function Navbar_() {
   const username = useSelector(selectUsername);
   const password = useSelector(selectPassword);
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -17,9 +17,7 @@ function Navbar_() {
   const [isOpenUM, setIsOpenUM] =useState(false)
   const [data, setData] =useState()
   const [username_, setUsername_] =useState(username)
-
   const [redirectAdd, setRedirectAdd] =useState('/login')
-
  
  useEffect(()=>{
   if(isAuthenticated)
@@ -80,6 +78,15 @@ else{
     }else if(userMenu==='hidden'){
       setUserMenu('absolute')
     }
+  }
+
+  const [query, setQuery] =useState('')
+  const navigate = useNavigate()
+
+  function handleSearch() {
+
+    const Q= query.replace(/ /g, '-');
+    navigate(`/Category/Id/a/a/a/q/${Q}`)
   }
 
 
@@ -321,8 +328,8 @@ else{
     </div>
     
     <div className='w-[32%] h-[52px] relative'>
-    <input type="text" className='text-black border-[2px] border-[#eeeeee] shadow-sm rounded-full w-full px-6 py-3 ml-7 bg-white' />
-    <button className='absolute z-10 right-0 top-3 translate-x-2 scale-105'><span class="material-symbols-outlined rounded-full  p-1  text-[#295CD3]">search</span></button>
+    <input value={query} onChange={(e)=>{setQuery(e.target.value)}} type="text" className='text-black border-[2px] border-[#eeeeee] shadow-sm rounded-full w-full px-6 py-3 ml-7 bg-white' />
+    <button onClick={()=>{handleSearch()}} className='absolute z-10 right-0 top-3 translate-x-2 scale-105'><span class="material-symbols-outlined rounded-full  p-1  text-[#295CD3]">search</span></button>
     </div>
   
    <div className='w-[20%]  flex items-center justify-end gap-4'>

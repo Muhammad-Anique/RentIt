@@ -12,12 +12,23 @@ import Pr2 from '../../Assets/Pr2.svg'
 import Pr1 from '../../Assets/Pr1.png'
 import Navbar from '../NavBar/Navbar'
 import Footer from '../Footer/Footer'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+
 
 
 
 function Home() {
  
+    const [query, setQuery] =useState('')
+    const navigate = useNavigate()
+
+     function handleSearch() {
+
+        const Q= query.replace(/ /g, '-');
+        navigate(`/Category/Id/a/a/a/q/${Q}`)
+     }
+
+
 
 
   return (
@@ -32,8 +43,8 @@ function Home() {
              <h1 className='text-[#0A1048] font-bold text-5xl text-center'>Rent <span className='gochi_ text-[#295CD3]'>Household </span> <br /> Item from People <br /> in your area </h1>
             <p className='text-[#4b4b4b] text-xl mt-5'>Borrow almost anything from people nearby <br /> for jobs at home, fun experiences or work.</p>
            <div className='relative'>
-            <input type="text" className='w-[400px] h-[40px] border-2 rounded-full border-[#4b4b4b] mt-5 px-5 ' placeholder='Search'  ></input>
-            <button className='absolute z-10 right-5 top-7'><span class="material-symbols-outlined text-[#295CD3]">search</span></button>
+            <input type="text" value={query} onChange={(e)=>{setQuery(e.target.value)}} className='w-[400px] h-[40px] border-2 rounded-full border-[#4b4b4b] mt-5 px-5 ' placeholder='Search'  ></input>
+            <button onClick={()=>{handleSearch()}} className='absolute z-10 right-5 top-7'><span class="material-symbols-outlined text-[#295CD3] hover:text-blue-400">search</span></button>
            </div>
         </div>
          <img src={adven} className='absolute z-0 right-0 w-[500px] bottom-0 ' alt="" /> 
@@ -106,7 +117,7 @@ function Home() {
                 </p>
                 <p className='text-xl mt-4'> No need to worry. Find the perfect sports Equipment and Excel in Sports </p>
                
-                <button className='bg-[#295CD3] mt-4 text-white px-6 py-2 font-bold'>Get Sports</button>
+                <Link to='/Category/Id/bhs/a/a' className='bg-[#295CD3] mt-[10px] w-[160px] flex flex-row justify-center items-center text-white px-6 py-2 font-bold'>Get Sports</Link>
 
 
             </div>
@@ -122,7 +133,7 @@ function Home() {
             </div>
           
             <div className='flex flex-row w-[80%] items-center justify-center gap-7 mt-5'>
-            <div className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/a/a/a/lahore' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
             <div
             className="w-[200px] h-[180px] overflow-hidden rounded-t-2xl relative"
             >
@@ -132,12 +143,12 @@ function Home() {
                 alt=""
             />
             </div>
-            <p className='text-[#4b4b4b] text-center  '>Lahore</p>
-            </div>
+            <p  className='text-[#4b4b4b] text-center  '>Lahore</p>
+            </Link>
            
 
 
-            <div className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl   ease-in-out duration-300 hover:cursor-pointer'>
+            <Link  to='/Category/Id/a/a/a/islamabaad' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl   ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[180px] rounded-t-2xl overflow-hidden bg-white'>
             <img
                 src={Isl} // Replace with your image source
@@ -146,10 +157,10 @@ function Home() {
             />
             </div>
             <p className='text-[#4b4b4b] text-center'>Islamabad</p>
-            </div>
+            </Link>
 
 
-            <div className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/a/a/a/karachi' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[180px] rounded-t-2xl overflow-hidden bg-white'>
             <img
                 src={Khi} // Replace with your image source
@@ -158,10 +169,10 @@ function Home() {
             />
             </div>
             <p className='text-[#4b4b4b] text-center '>Karachi</p>
-            </div>
+            </Link>
 
 
-            <div className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl    ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/a/a/a/multan' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl    ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[180px] rounded-t-2xl overflow-hidden bg-white'>
             <img
                 src={Multan} // Replace with your image source
@@ -170,10 +181,10 @@ function Home() {
             />
             </div>
             <p className='text-[#4b4b4b] text-center '>Multan</p>
-            </div>
+            </Link>
 
 
-            <div className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
+            <Link to='/Category/Id/a/a/a/peshawar' className='flex flex-col justify-center items-center shadow-md pb-2 rounded-b-2xl  ease-in-out duration-300 hover:cursor-pointer'>
             <div className='w-[200px] h-[180px] rounded-t-2xl overflow-hidden bg-white'>
             <img
                 src={Pwr} // Replace with your image source
@@ -182,7 +193,7 @@ function Home() {
             />
             </div>
             <p className='text-[#4b4b4b] text-center '>Peshawar</p>
-            </div>
+            </Link>
             </div>
         </div>
 
@@ -192,13 +203,13 @@ function Home() {
         <div className='flex w-full h-auto flex-row justify-center mt-[50px]  items-center'>
            
 
-            <div className='w-[500px] h-full ml-3'>
+            <div className='w-[500px] h-full ml-3 flex flex-col gap-1'>
                 <p className='text-3xl font-bold'>
-                    Wanna Play <span className='text-[#295CD3]'>Sports</span>  and You Dont Have the Equipment? 
+                    Need Something for a while ? <span className='text-[#295CD3]'>Do not</span> Buy It!
                 </p>
-                <p className='text-xl mt-4'> No need to worry. Find the perfect sports Equipment and Excel in Sports </p>
+                <p className='text-xl mt-4'> We have got you. Find the perfect match to your needs on our platform </p>
                
-                <button className='bg-[#295CD3] mt-4 text-white px-6 py-2 font-bold'>Get Sports</button>
+                <Link to='/Category/Id/a/a/a' className='bg-[#295CD3] mt-[10px] w-[130px] flex flex-row justify-center items-center text-white px-6 py-2 font-bold'>Discover</Link>
 
 
             </div>

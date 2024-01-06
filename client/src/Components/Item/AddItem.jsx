@@ -7,7 +7,7 @@ import cloud1 from '../../Assets/cloud1.png'
 import cloud2 from '../../Assets/cloud2.png'
 
 import Navbar from '../NavBar/Navbar'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import Select from 'react-select'
 
@@ -23,7 +23,13 @@ import { getDownloadURL, getStorage, ref,uploadBytes } from 'firebase/storage'
 import {v4} from 'uuid'
 
 function AddItem() {
+  let { id } = useParams();
+  console.log("USERID HERE IS = > ",id)
 
+  const navigate =useNavigate()
+  if(id==="null" || id===null){
+    navigate('/login')
+  }
  
 
   const [insertedItemId, setInsertedItemId] =useState(0)

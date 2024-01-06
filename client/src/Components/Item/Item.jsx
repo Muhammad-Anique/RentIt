@@ -1,9 +1,6 @@
 import React from 'react'
 import '../../Assets/fonts.css'
 import { Link } from 'react-router-dom';
-
-
-
 function Item(props) {
   var Item = {
     "itemName" : "Sofa",

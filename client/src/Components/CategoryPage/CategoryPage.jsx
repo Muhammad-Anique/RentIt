@@ -14,19 +14,29 @@ function CategoryPage(props) {
 
     var apiEndpoint = ''
     if(mainCategory!=="a" && subCategory==="a" && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
+      console.log("MAINMAIN === >", mainCategory)
       apiEndpoint = `http://localhost:8080/item/getbycategory/${mainCategory}`;
 
     }
     else if(mainCategory!=="a" && subCategory!=="a" && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
+      console.log("MAINMAIN***** === >", mainCategory)
       apiEndpoint = `http://localhost:8080/item/getbysubcategory/${mainCategory}/${subCategory}`
     }
     else if(mainCategory==='a' && props.isCategory===1 && props.isCity===0 && props.isQuery===0){
+      console.log("MAINMAIN*****##$$ === >", mainCategory)
       apiEndpoint = `http://localhost:8080/item/getAll`
     }
-    else if (props.isCity===0 ){
+    else if (mainCategory==='a' && subCategory==='a' && type==='a' && props.isCity===1 ){
+      console.log("MAINMAIN****555 === >", mainCategory)
       apiEndpoint = `http://localhost:8080/item/city/${city}`
-    } else if (props.isQuery===1 ){
+
+    } else if (mainCategory==='a' && subCategory==='a' && type==='a' && props.isQuery===1 ){
+
+      console.log("QUERY ========", query)
       apiEndpoint = `http://localhost:8080/item/query/${query}`
+    }
+    else{
+      console.log("MAINMAIN***** jjj=== >", mainCategory)
     }
     
 

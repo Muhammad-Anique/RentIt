@@ -61,13 +61,11 @@ const router = createBrowserRouter([
       {
         path:"/home/:id/about",
         element:<About/>
-
       },  
       {
         path:"/home/:id/add",
         element:<AddItem/>
       },
-     
     ]
 
   },
@@ -85,18 +83,18 @@ const router = createBrowserRouter([
     children:[
       {
         path:"/Category/Id/:mainCategory/:subCategory/:type",
-        element:<CategoryPage/>
+        element:<CategoryPage isCity={0} isQuery={0} isCategory={1}/>
       },
       {
         path:"/Category/Id/:categoryId/Item/:itemId",
         element:<ItemDetailPage isCity={0} isQuery={0} isCategory={1}/>
       },
       {
-        path:"/Category/city/:city",
+        path:"/Category/Id/:mainCategory/:subCategory/:type/:city",
         element:<CategoryPage isCity={1} isQuery={0} isCategory={0}/>
       },
       {
-        path:"/Category/query/:query",
+        path:"/Category/Id/:mainCategory/:subCategory/:type/q/:query",
         element:<CategoryPage isCity={0} isQuery={1} isCategory={0}/>
       },
     ]
@@ -112,7 +110,6 @@ root.render(
     <Provider store={store}>
     <RouterProvider router={router} />
     </Provider>
-  
   </React.StrictMode>
 );
 

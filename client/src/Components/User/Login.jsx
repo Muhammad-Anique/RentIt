@@ -13,12 +13,26 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../../store/Slices/authSlice'; // Replace with the correct path to your authSlice
 
+import { ToastContainer , toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
+  const navigate = useNavigate()
+  const notifyF = (msg) => {
+    toast.error(msg, {
+      position : toast.POSITION.TOP_RIGHT,  // Change position to BOTTOM_RIGHT
+      autoClose: 3000,
+    });
+  };
+  const notifyS = (msg) => {
+    toast.success(msg, {
+      position: toast.POSITION.TOP_RIGHT, // Set the position of the toast
+      autoClose: 3000, // Set auto-close time in milliseconds
+    });
+  };
 
 
 
-  const navigate =useNavigate()
   const dispatch = useDispatch();
 
   const [loginByEmail, setLoginByEmail] =useState(0)
@@ -31,6 +45,7 @@ function Login() {
 
     // Form validation (you can add more validation logic)
     if (!email || !password) {
+      notifyF("Email and Password Required")
       console.error('Email and password are required');
       return;
     }
@@ -59,11 +74,13 @@ function Login() {
      
       navigate(`/home/${data.userId}`)
     } catch (error) {
+      notifyF("Incorrect Email or Password")
+      
       console.error('There was a problem with the fetch operation:', error);
     }
   };
 
-
+  
 
 
 
@@ -78,6 +95,7 @@ function Login() {
     <img src={cloud2} className='absolute -z-0 top-[180px] right-[250px]' alt="" />
     <Navbar/>
     <div className='bg-white rounded-3xl w-[430px] h-[550px] my-auto flex flex-col justify-between items-center py-20 z-10'>
+    <ToastContainer position="top-right" autoClose={3000} />
         <h1 className='text-center font-bold text-[#0A1048] text-4xl '>Welcome to <br /> RentIt</h1>
 
         { loginByEmail ===1 ? (<>

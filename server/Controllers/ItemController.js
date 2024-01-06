@@ -289,6 +289,7 @@ const getItemBySearchQuery = (req, res) => {
   const query = req.params.query; 
   const query_ = query.replace(/-/g, ' ');
   const param =`%${query_}%`
+  console.log(param)
   pool.query(itemQueries.getItemBySearchQuery, [param], (error, results) => {
     if (error) {
       console.log("rr" ,error)
