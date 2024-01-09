@@ -33,6 +33,7 @@ function AddItem() {
  
 
   const [insertedItemId, setInsertedItemId] =useState(0)
+  const [isInserting, setIsinserting] =useState(false)
   
   const username = useSelector(selectUsername);
   const password = useSelector(selectPassword);
@@ -110,8 +111,7 @@ function AddItem() {
 
 
   const options2 = [
-    { value: 'Books', label: 'Books' },
-    { value: 'Magazines', label: 'Magazines' },
+    { value: 'Books & Magazines', label: 'Books & Magazines' },
     { value: 'Sports Equipment', label: 'Sports Equipment' },
     { value: 'Gym & Fitness', label: 'Gym & Fitness' },
     { value: 'Musical Instruments', label: 'Musical Instruments' },
@@ -323,7 +323,7 @@ const handleImageChange5 = (event) => {
 };
 
 // Function to upload Blob to Firebase Storage
-const uploadImageToFirebase = async (img) => {
+const uploadImageToFirebase = async (img,isMandatory) => {
   if(img){
     try {
       const fileName = v4();
@@ -341,8 +341,10 @@ const uploadImageToFirebase = async (img) => {
       console.error('Error uploading image:', error);
       
     }
-  }else {
-    return ''
+  }else if(!img && !isMandatory) {
+    return 'https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/nnnm.PNG?alt=media&token=f7b3708f-3dd9-4a8a-9c72-8c94022cc4de'
+  } else if(!img && isMandatory){
+    return null;
   }
   
 };
@@ -353,18 +355,17 @@ function validateRequestBody(requestBody) {
     itemDescription,
     itemRent,
     itemType,
+    itemKeywords,
+    itemCondition, 
+    itemLocation,
     image1,
-    image2,
-    image3,
-    image4,
-    image5
   } = requestBody;
 
   // Function to check if a value is null or undefined
   const isNullOrUndefined = value => value === null || value === undefined;
 
   // Check for null values except itemUsage
-  const hasNullValues = [itemName, itemDescription, itemRent, itemType, image1, image2, image3, image4, image5].some(value => isNullOrUndefined(value) && value !== formValues.itemUsage);
+  const hasNullValues = [itemName, itemDescription, itemRent, itemType, image1,itemKeywords, itemCondition, itemLocation].some(value => isNullOrUndefined(value) && value !== formValues.itemUsage);
 
   // Check for itemName length
   const isItemNameValid = itemName.length > 2;
@@ -380,7 +381,7 @@ function validateRequestBody(requestBody) {
 
   // Final validation
   if (hasNullValues) {
-    return "All fields except itemUsage must have a value.";
+    return "All fields except Usage details must have a value.";
   } else if (!isItemNameValid) {
     return "Item name must be at least 6 characters long.";
   } else if (!isItemDescriptionValid) {
@@ -388,7 +389,7 @@ function validateRequestBody(requestBody) {
   } else if (!isRentNumeric) {
     return "Item rent must be a numeric value.";
   } else if (!isTypeNumeric) {
-    return "Item type must be a numeric value.";
+    return "Select the Categories Accurately";
   }
 
   // All validations passed
@@ -415,17 +416,11 @@ const handleSubmit = async (e) => {
     return;
   }
 
-  const i1= await uploadImageToFirebase(img1);
-  const i2 = await uploadImageToFirebase(img2);
-  const i3 = await uploadImageToFirebase(img3);
-  const i4 = await uploadImageToFirebase(img4);
-  const i5 = await uploadImageToFirebase(img5);
-
-  var typpe = typeCatVal.value;
-  if(typpe==="select") {
-  typpe=1001;
-  }
-
+  const i1= await uploadImageToFirebase(img1,1);
+  const i2 = await uploadImageToFirebase(img2,0);
+  const i3 = await uploadImageToFirebase(img3,0);
+  const i4 = await uploadImageToFirebase(img4,0);
+  const i5 = await uploadImageToFirebase(img5,0);
 
 
   const requestBody = {
@@ -436,7 +431,7 @@ const handleSubmit = async (e) => {
     itemLocation: formValues.itemLocation,
     itemUsage: formValues.itemUsage,
     itemKeywords: formValues.itemKeywords,
-    itemType: typpe,
+    itemType: typeCatVal.value,
     ownerId: data.userId,
     image1 :  i1,
     image2:   i2,
@@ -450,6 +445,7 @@ const handleSubmit = async (e) => {
 
   console.log("RRR",requestBody)
   try {
+    setIsinserting(true)
     const response = await fetch('http://localhost:8080/item/addItem', {
       method: 'POST',
       headers: {
@@ -463,7 +459,12 @@ const handleSubmit = async (e) => {
       isAdded=1
       Id= data.Id_  
      
-      notifyS(`Item Inserted ${data.Id_}`)
+      notifyS(`Item Inserted`)
+      setIsinserting(0)
+      // setTimeout(() => {
+      //   navigate(`/Category/Id/${}/Item/${}`)
+        
+      // }, 3000);
     
     } else {
       console.error('Error:', response.statusText);
@@ -472,6 +473,7 @@ const handleSubmit = async (e) => {
     console.error('Error:', error);
   }
   }else{
+    setIsinserting(0)
     notifyF(validationMessage)
   }
 
@@ -523,7 +525,7 @@ const handleSubmit = async (e) => {
 
           <div class="field field_v1 w-full">
             <label for="name" class="ha-screen-reader">Item Rent</label>
-            <input id="name" class="field__input" placeholder=" " name="itemRent"  value={formValues.itemRent}
+            <input type="number" id="name" class="field__input" placeholder=" " name="itemRent"  value={formValues.itemRent}
             onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Rent Rs.</span>
@@ -664,7 +666,9 @@ const handleSubmit = async (e) => {
        
             
         </div>
-        <button  onClick={()=>{handleSubmit()}} className='bg-[#0a1048] text-white rounded-lg w-[150px] h-[60px] hover:bg-[#0a1048e4]'>Add Item</button>
+        {!isInserting ? (        <button  onClick={()=>{handleSubmit()}} className='bg-[#0a1048] text-white rounded-lg w-[150px] h-[60px] hover:bg-[#0a1048e4]'>Add Item</button>
+        ) : (        <button className='bg-[#0a1048] text-white rounded-lg w-[150px] h-[60px] hover:bg-[#0a1048e4]'>Inserting...</button>
+        )}
 
        
      

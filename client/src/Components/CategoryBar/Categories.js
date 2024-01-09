@@ -77,14 +77,9 @@ const Categories = {
 
   "Books, Hobbies & Sports": [
     {
-      "name": "Books",
+      "name": "Books & Magazines",
       "gIcon": "menu_book",
       "link": "/category/id/bhs/b/a"
-    },
-    {
-      "name": "Magazines",
-      "gIcon": "book",
-      "link": "/category/id/bhs/m/a"
     },
     {
       "name": "Sports Equipment",

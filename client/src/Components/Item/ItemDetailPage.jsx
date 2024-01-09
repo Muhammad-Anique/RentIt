@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 
-
-
 function ItemDetailPage() {
     let {itemId} = useParams();
     
@@ -45,19 +43,19 @@ function ItemDetailPage() {
     
   
   return (
-    <div className='w-full h-auto flex items-center justify-center'>
+    <div className='w-full h-auto flex flex-col items-center justify-center'>
        <div className='w-[70%]  h-auto py-2 px-2 font-medium mt-[85px]'>
-            <h1 className='text-xl font-bold '> {item.itemName}</h1> 
-           <div className='flex flex-row justify-center items-center h-[400px] mt-4'>
-            <div className='w-[50%] h-full rounded-l-lg overflow-hidden '>
-                <img className='object-cover' src={item.image1}  alt="" />
+            <h1 className='text-md '> {item.mainCategory}  &gt; {item.subCategory}  &gt; {item.type}</h1> 
+           <div className='flex flex-row justify-center items-center h-[400px] bg-[#ffffff] p-3 rounded-md mt-4'>
+            <div className='w-[50%] shadow-md flex items-center justify-center  h-full rounded-l-lg overflow-hidden '>
+                <img className='object-fit' src={item.image1}  alt="" />
             </div>
 
-            <div className='w-[50%] h-full flex flex-col  gap-2 px-2 '>
+            <div className='w-[50%] h-full flex flex-col gap-2 px-2 '>
 
-                <div className=' flex flex-row w-full gap-2 h-[50%]'>
+                <div className='shadow-md  flex flex-row w-full gap-2 h-[50%]'>
                 <div className='w-[50%] h-full  overflow-hidden '>
-                <img className='object-cover' src={item.image2} alt="" />
+                <img className='object-fit' src={item.image2} alt="" />
                 </div>
                 <div className='w-[50%] h-full overflow-hidden '>
                 <img className='object-cover' src={item.image3}  alt="" />
@@ -65,7 +63,7 @@ function ItemDetailPage() {
 
                 </div>
                
-                <div className='flex flex-row w-full gap-2 h-[50%]'>
+                <div className='flex shadow-md  flex-row w-full gap-2 h-[50%]'>
                 <div className='w-[50%] h-full  overflow-hidden '>
                 <img className='object-cover' src={item.image4}  alt="" />
                 </div>
@@ -78,11 +76,11 @@ function ItemDetailPage() {
            </div>
            <div className=' w-full h-auto flex flex-row justify-between gap-10 mt-5'>
                 <div className='flex flex-col mt-3 w-[50%]'>
-                    <h1>{item.itemName}</h1>
-                    <p className='text-xs text-[#4b4b4b]'>{item.keywords}</p>
+                    <h1 className='text-xl font-bold'>{item.itemName}</h1>
+                    <p className='text-xs text-[#4b4b4b] mt-2'>{item.keywords}</p>
                     <div className='flex flex-row gap-3'>
                         <p className='text-xs font-bold'>4.96</p>
-                        <p className='text-xs font-bold'>3 Review</p>
+                        <p className='text-xs font-bold'>3 Reviews</p>
                     </div>
 
                  <hr className='w-[100%] bg-[#c2c2c2] h-[1px] mt-5'/>
@@ -98,7 +96,13 @@ function ItemDetailPage() {
                  <p className='text-xs text-[#6c6c6c] mt-3'>
                   {item.itemDescription}</p>
                  <hr className='w-[100%] bg-[#c2c2c2] h-[1px] mt-5'/>
+
+                 <img src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/s1.PNG?alt=media&token=ee2f2eee-94ca-454d-9bf0-851688c80e6b" alt="" />
+                 <img src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/s2.PNG?alt=media&token=63659dc8-362c-4e2d-af05-aa5b53fe6946" alt="" />
                 </div>
+
+
+              
 
                 <div className='w-[45%] h-[600px] p-10 '>
                     <div className='bg-white shadow-lg w-full h-full rounded-lg  items-center flex border-[1px] border-[#ededed]  flex-col p-10'>
@@ -143,7 +147,7 @@ function ItemDetailPage() {
                         </div>
                         <div className='w-full h-[50%]  flex flex-col justify-end'>
                             <p className='text-[9px] text-[#7c7c7c]'>
-                            Clothes are garments or items worn on the body. They serve various purposes such as protection from the elements, modesty, and fashion. Clothes can be made from different materials like cotton, silk, wool, polyester, or blends of these materials. </p>
+                            Clothes are garments or items worn on the body. They serve various purposes such as protection from the elements, modesty, and fashion. Clothes can be made from different materials like cotton, silk, wool, polyester, or bAdds of these materials. </p>
                             <hr className='bg-[#4b4b4b] mt-5' />
                             <div className='flex flex-row mt-5 justify-between items-center'>
                                 <h1 className='text-xl text-[#295Dc3] font-bold'>
@@ -174,8 +178,28 @@ function ItemDetailPage() {
 
         </div>
         </div>
+
+
+       
         
-      
+        <div className='h-auto flex flex-col items-center rounded-xl shadow-sm overflow-hidden w-full '>
+            <h1 className='font-bold text-2xl'>Location</h1>
+            <img className='object-cover rounded-xl mt-3 w-[70%]' src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/maps5.PNG?alt=media&token=f1bd53d0-048b-41e9-a26c-10138eeb4b42" alt="" />    
+        </div>
+
+        <div className='h-auto flex flex-col px-10 mt-[30px]  items-center rounded-xl shadow-sm overflow-hidden w-3/4 '>
+            <h1 className='font-bold text-2xl mt-3 '>Reviews</h1>
+            <div className='w-full h-auto flex flex-row items-center mt-3 justify-between'>
+            <img className='object-cover rounded-sm w-[270px]' src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/s3.PNG?alt=media&token=26add358-b26a-4744-a88c-194e19b12e37" alt="" />    
+            <img className='object-cover rounded-sm w-[265px]' src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/s4.PNG?alt=media&token=777b914c-9b18-42bb-b6e8-ccba2aeb3278" alt="" />    
+            <img className='object-cover rounded-sm w-[280px]' src="https://firebasestorage.googleapis.com/v0/b/rentit-e521b.appspot.com/o/s5.PNG?alt=media&token=7ea099d2-4ded-466e-a4fe-bfd16331063e" alt="" />    
+           
+
+            </div>
+        </div>
+        <div className='w-full h-[70px]'>
+
+        </div>
     </div>
   )
 }

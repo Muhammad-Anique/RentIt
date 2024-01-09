@@ -84,8 +84,8 @@ else{
   const navigate = useNavigate()
 
   function handleSearch() {
-
-    const Q= query.replace(/ /g, '-');
+    const Q_= query.replace(/-/g, 'fff');
+    const Q= Q_.replace(/ /g, '-');
     navigate(`/Category/Id/a/a/a/q/${Q}`)
   }
 
@@ -152,7 +152,7 @@ else{
 
 
 
-      <Link to='/' className='hover:text-[#295cd3] mt-2'>
+      <Link to='/Category/Id/eha/a/a' className='hover:text-[#295cd3] mt-2'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       Kitchen
@@ -162,7 +162,7 @@ else{
       </Link>
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/Category/Id/bhs/a/a' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
      sports_basketball
@@ -172,7 +172,7 @@ else{
       </Link>
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/Category/Id/fb/a/a' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
      apparel
@@ -183,7 +183,7 @@ else{
 
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/Category/Id/fhd/a/a' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
      chair
@@ -193,7 +193,7 @@ else{
       </Link>
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/Category/Id/k/a/a' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       stroller
@@ -335,7 +335,7 @@ else{
    <div className='w-[20%]  flex items-center justify-end gap-4'>
 
 
-        <Link to={`/home/${username_}/add`} className="button-cover" role="button"><span className="text">Lend</span><span>Items!</span></Link>
+        <Link to={`/home/${username_}/add`} className="button-cover" role="button"><span className="text">Add</span><span>Items!</span></Link>
         <button onClick={()=>{isClikedUM()}} className='text-[#4b4b4b] scale-125 hover:text-[#295cd3]  '>
         <span class="material-symbols-outlined">
         account_circle

@@ -70,7 +70,7 @@ function CategoryPage(props) {
     <CategoryBar />    
     <div  className='flex flex-wrap flex-row justify-center items-center w-full  gap-5 p-7 py-12  '>
     {data && data.length === 0 ? (
-                <h2 className='text-[#4c4c4c] font-bold'>Sorry, No Products Found</h2>
+                <div className='text-[#4c4c4c] h-[400px] flex items-center justify-center font-bold'>Sorry, No Products Found</div>
             ) : (
                 data.map((item, index) => (
                     <Item

@@ -23,8 +23,8 @@ function Home() {
     const navigate = useNavigate()
 
      function handleSearch() {
-
-        const Q= query.replace(/ /g, '-');
+        const Q_= query.replace(/-/g, 'fff');
+        const Q= Q_.replace(/ /g, '-');
         navigate(`/Category/Id/a/a/a/q/${Q}`)
      }
 
@@ -98,7 +98,7 @@ function Home() {
             <div className='w-[200px] h-[200px] rounded-t-2xl overflow-hidden bg-white'>
                 <img src="https://res.cloudinary.com/babylist/image/upload/f_auto,q_auto:best,c_scale,w_768/v1659997704/hello-baby/Baby_Gear_Save_vs._Splurge.jpg" className='object-cover scale-[2.2] translate-y-[55px]' alt="" />         
             </div>
-            <p className='text-[#4b4b4b] text-center mt-2'>Kids & <br /> BabyGear</p>
+            <p className='text-[#4b4b4b] text-center mt-2'>Kids  <br /> <span className='text-white'>bbb</span></p>
             </Link>
             </div>
 

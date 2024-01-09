@@ -12,30 +12,30 @@ function Footer() {
         
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>RentIt</p>
-        <Link to='/' className='text-sm mt-2' >Home</Link>
-        <Link to='/about' className='text-sm'  >About</Link>
-        <Link to='/contact' className='text-sm' >Contact</Link>
-        <Link to='/termsandcondition' className='text-sm' >Terms & Condition</Link>
-        <Link to='/privacy' className='text-sm' >Privacy</Link>
+        <Link to='/' className='text-sm mt-2 hover:text-[#095Ab3] cursor-pointer' >Home</Link>
+        <Link to='/about' className='text-sm hover:text-[#095Ab3] cursor-pointer'  >About</Link>
+        <Link to='/contact' className='text-sm hover:text-[#095Ab3] cursor-pointer' >Contact</Link>
+        <Link to='/termsandcondition' className='text-sm hover:text-[#095Ab3] cursor-pointer' >Terms & Condition</Link>
+        <Link to='/privacy' className='text-sm hover:text-[#095Ab3] cursor-pointer' >Privacy</Link>
        
     </div>
     <div className='flex flex-col justify-center'>
         <p className='font-bold'>Locations</p>
-        <Link to='/items/getByCity/Lhr'  className='text-sm mt-2' >Lahore</Link>
-        <Link to='/items/getByCity/Khi'  className='text-sm' >Karachi</Link>
-        <Link to='/items/getByCity/Isl'  className='text-sm' >Islamabad</Link>
-        <Link to='/items/getByCity/Mlt' className='text-sm' >Multan</Link>
-        <Link to='/items/getByCity/Psw' className='text-sm' >Peshawar</Link>
+        <Link to='/Category/Id/a/a/a/lahore'  className='text-sm mt-2 hover:text-[#095Ab3] cursor-pointer' >Lahore</Link>
+        <Link to='/Category/Id/a/a/a/karachi'  className='text-sm hover:text-[#095Ab3] cursor-pointer' >Karachi</Link>
+        <Link to='/Category/Id/a/a/a/islamabaad'  className='text-sm hover:text-[#095Ab3] cursor-pointer' >Islamabad</Link>
+        <Link to='/Category/Id/a/a/a/Multan' className='text-sm hover:text-[#095Ab3] cursor-pointer' >Multan</Link>
+        <Link to='/Category/Id/a/a/a/Peshawar' className='text-sm hover:text-[#095Ab3] cursor-pointer' >Peshawar</Link>
     </div>
    
     <div className='flex flex-col justify-center'>
 
         <p className='font-bold'>Categories</p>
-        <Link to='/Category/Id/eha/a/a' className='text-sm mt-2' >Electronic & Home Apliances</Link>
-        <Link to='/Category/Id/bhs/a/a'  className='text-sm' >Books, Hobbies & Sports</Link>
-        <Link to='/Category/Id/fb/a/a'  className='text-sm' >Fashion & Beauty</Link>
-        <Link to='/Category/Id/fhd/a/a'  className='text-sm' >Furniture & Home Decor</Link>
-        <Link to='/Category/Id/k/a/a'   className='text-sm' >Kids </Link>
+        <Link to='/Category/Id/eha/a/a' className='text-sm mt-2 hover:text-[#095Ab3] cursor-pointer' >Electronic & Home Apliances</Link>
+        <Link to='/Category/Id/bhs/a/a'  className='text-sm hover:text-[#095Ab3] cursor-pointer' >Books, Hobbies & Sports</Link>
+        <Link to='/Category/Id/fb/a/a'  className='text-sm hover:text-[#095Ab3] cursor-pointer' >Fashion & Beauty</Link>
+        <Link to='/Category/Id/fhd/a/a'  className='text-sm hover:text-[#095Ab3] cursor-pointer' >Furniture & Home Decor</Link>
+        <Link to='/Category/Id/k/a/a'   className='text-sm hover:text-[#095Ab3] cursor-pointer' >Kids </Link>
        
     </div>
     <div className='flex flex-col justify-center'>
