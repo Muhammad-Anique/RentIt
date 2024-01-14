@@ -288,7 +288,8 @@ const getItemByCity = (req, res) => {
 const getItemBySearchQuery = (req, res) => {
   const query = req.params.query; 
   const query_ = query.replace(/-/g, ' ');
-  const param =`%${query_}%`
+  const query__ = query_.replace(/fff/g, '-');
+  const param =`%${query__}%`
   console.log(param)
   pool.query(itemQueries.getItemBySearchQuery, [param], (error, results) => {
     if (error) {

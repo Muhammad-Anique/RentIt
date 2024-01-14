@@ -11,6 +11,7 @@ const getAllUsers = (req, res) => {
 };
 
 
+
 const getUserById = (req, res) => {
   const userId = req.params.userId; // Get userId from URL params
   console.log(userId)
@@ -59,13 +60,17 @@ function generateRandomNumber() {
 }
 
 const registerUser = (req, res) => {
-  const { email, password, cnic, dob, name } = req.body; // Get email and password from request body
+  const { email, password, cnic, dob, name,cnicImg, profileImg } = req.body; // Get email and password from request body
+
+  console.log(cnicImg)
+  console.log(profileImg)
+  console.log(req.body)
   const id = generateRandomNumber(); // Assuming this is a predefined ID or generated elsewhere
   const formattedDate = new Date(dob).toISOString().split('T')[0];
 
   pool.query(
    userQueries.registerUser,
-    [id, name, cnic, formattedDate, email, password,null,null,null,null,null],
+    [id, name, cnic, formattedDate, email, password,null,null,null,profileImg,cnicImg ],
 
     (error, results) => {
       if (error) {

@@ -115,7 +115,7 @@ else{
      
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/about' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       info
@@ -125,7 +125,7 @@ else{
       </Link>
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to='/howitworks' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
         question_mark
@@ -135,7 +135,7 @@ else{
       </Link>
 
 
-      <Link to='/home' className='hover:text-[#295cd3]'>
+      <Link to='/Category/Id/a/a/a' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       apps

@@ -150,14 +150,11 @@ const uploadImageToFirebase = async (img) => {
   
   const handleSubmit = async (e) => {
     setIsRegistering(1)
-
-    const im1 = await uploadImageToFirebase(imageOne)
-    const im2 = await uploadImageToFirebase(imageTwo)
-
-    
-
    
     if(validateInputs(formData.name, formData.email,formData.dob,formData.cnic,formData.password, formData.confirmPassword, imageOne, imageTwo)===true){
+      
+      const im1 = await uploadImageToFirebase(imageOne)
+      const im2 = await uploadImageToFirebase(imageTwo)
       const Postbody = {
         name: formData.name,
         email: formData.email,

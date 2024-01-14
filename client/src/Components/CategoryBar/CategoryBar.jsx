@@ -45,7 +45,7 @@ function CategoryBar(props) {
       {
         mainCategory==='a'  ? (<div className='w-full scroll-container overflow-y-hidden h-full py-5 flex justify-center items-center flex-row gap-5'>
     
-    <Link to='/' className='hover:text-[#295cd3] mt-2'>
+    <Link to='/Category/Id/eha/a/a' className='hover:text-[#295cd3] mt-2'>
        <div className='flex flex-row gap-3 items-center'>
        <span class="material-symbols-outlined">
        Kitchen
@@ -55,7 +55,7 @@ function CategoryBar(props) {
        </Link>
  
  
-       <Link to='/' className='hover:text-[#295cd3]'>
+       <Link to='/Category/Id/bhs/a/a' className='hover:text-[#295cd3]'>
        <div className='flex flex-row gap-3 items-center'>
        <span class="material-symbols-outlined">
       sports_basketball
@@ -65,7 +65,7 @@ function CategoryBar(props) {
        </Link>
  
  
-       <Link to='/' className='hover:text-[#295cd3]'>
+       <Link to='/Category/Id/fb/a/a' className='hover:text-[#295cd3]'>
        <div className='flex flex-row gap-3 items-center'>
        <span class="material-symbols-outlined">
       apparel
@@ -76,7 +76,7 @@ function CategoryBar(props) {
  
  
  
-       <Link to='/' className='hover:text-[#295cd3]'>
+       <Link to='/Category/Id/fhd/a/a' className='hover:text-[#295cd3]'>
        <div className='flex flex-row gap-3 items-center'>
        <span class="material-symbols-outlined">
       chair
@@ -86,7 +86,7 @@ function CategoryBar(props) {
        </Link>
  
  
-       <Link to='/' className='hover:text-[#295cd3]'>
+       <Link to='/Category/Id/k/a/a' className='hover:text-[#295cd3]'>
        <div className='flex flex-row gap-3 items-center'>
        <span class="material-symbols-outlined">
        stroller

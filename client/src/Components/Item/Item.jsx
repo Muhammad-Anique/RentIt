@@ -27,7 +27,7 @@ function Item(props) {
             </div>
             <p className='text-[8px] text-[#4b4b4b] mt-[3px]'>{Item.itemLocation}, Punjab</p>
             <p className='text-[8px] text-[#4b4b4b] mt-[1.5px]'>{Item.dateCreated}</p>
-            <p className='font-bold text-xs text-[#295CD3] mt-1'> Rs. {Item.itemRent}/-</p>
+            <p className='font-bold text-xs text-[#295CD3] mt-1'> Rs. {Item.itemRent}/-  per day</p>
         </div>
     </Link>
   )

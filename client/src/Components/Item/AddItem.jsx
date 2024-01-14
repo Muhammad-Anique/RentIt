@@ -124,7 +124,6 @@ function AddItem() {
     { value: 'Beds & Wardrobes', label: 'Beds & Wardrobes' },
     { value: 'Home Decoration', label: 'Home Decoration' },
     { value: 'Tables & Dining', label: 'Tables & Dining' },
-    { value: 'Office Furniture', label: 'Office Furniture' },
     { value: 'Garden & Outdoor', label: 'Garden & Outdoor' },
     { value: 'Curtains & Blinds', label: 'Curtains & Blinds' },
     { value: 'Rugs & Carpets', label: 'Rugs & Carpets' }
@@ -386,8 +385,8 @@ function validateRequestBody(requestBody) {
     return "Item name must be at least 6 characters long.";
   } else if (!isItemDescriptionValid) {
     return "Item description must be between 30 and 200 characters long.";
-  } else if (!isRentNumeric) {
-    return "Item rent must be a numeric value.";
+  } else if (!isRentNumeric && itemRent > 0 ) {
+    return "Item rent must be a positive numeric value.";
   } else if (!isTypeNumeric) {
     return "Select the Categories Accurately";
   }
@@ -398,7 +397,7 @@ function validateRequestBody(requestBody) {
 
 
 const handleSubmit = async (e) => {
-
+  setIsinserting(true)
   var Id= 0;
   var isAdded = 0;
   
@@ -429,7 +428,7 @@ const handleSubmit = async (e) => {
     itemCondition: formValues.itemCondition,
     itemRent: formValues.itemRent,
     itemLocation: formValues.itemLocation,
-    itemUsage: formValues.itemUsage,
+    itemUsageDetails: formValues.itemUsage,
     itemKeywords: formValues.itemKeywords,
     itemType: typeCatVal.value,
     ownerId: data.userId,
@@ -445,7 +444,7 @@ const handleSubmit = async (e) => {
 
   console.log("RRR",requestBody)
   try {
-    setIsinserting(true)
+   
     const response = await fetch('http://localhost:8080/item/addItem', {
       method: 'POST',
       headers: {
@@ -461,10 +460,10 @@ const handleSubmit = async (e) => {
      
       notifyS(`Item Inserted`)
       setIsinserting(0)
-      // setTimeout(() => {
-      //   navigate(`/Category/Id/${}/Item/${}`)
+      setTimeout(() => {
+        navigate(`/Category/Id/a/a/a`)
         
-      // }, 3000);
+      }, 3000);
     
     } else {
       console.error('Error:', response.statusText);
@@ -543,7 +542,7 @@ const handleSubmit = async (e) => {
 
 
           <div class="field field_v1 w-full">
-            <label for="name" class="ha-screen-reader">Item Rent</label>
+            <label for="name" class="ha-screen-reader">Item Rent per day</label>
             <input id="name" class="field__input" placeholder="e.g. Uncover the lens cover before using" name="itemUsage" value={formValues.itemUsage}
             onChange={handleInputChange} />
             <span class="field__label-wrap" aria-hidden="true">

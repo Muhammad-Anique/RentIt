@@ -83,12 +83,12 @@ const getItemById = `
 SELECT *
 FROM items
 JOIN users ON items.OwnerId = users.userId
+JOIN itemCategories ON items.itemCategory = itemCategories.categoryID
 WHERE items.itemId = ?
 LIMIT 1;
 
 
 `
-
 
 module.exports = {
  getItemsBySubCategory,

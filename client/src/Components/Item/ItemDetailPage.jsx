@@ -147,11 +147,12 @@ function ItemDetailPage() {
                         </div>
                         <div className='w-full h-[50%]  flex flex-col justify-end'>
                             <p className='text-[9px] text-[#7c7c7c]'>
-                            Clothes are garments or items worn on the body. They serve various purposes such as protection from the elements, modesty, and fashion. Clothes can be made from different materials like cotton, silk, wool, polyester, or bAdds of these materials. </p>
+                           Item should be used carefully.
+                           </p>
                             <hr className='bg-[#4b4b4b] mt-5' />
                             <div className='flex flex-row mt-5 justify-between items-center'>
                                 <h1 className='text-xl text-[#295Dc3] font-bold'>
-                                    Rent
+                                    Rent per day
 
                                 </h1>
                                 <h1>

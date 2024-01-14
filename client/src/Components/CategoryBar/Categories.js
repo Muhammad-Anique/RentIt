@@ -122,11 +122,6 @@ const Categories = {
           "link": "/Category/Id/fhd/td/a"
       },
       {
-          "name": "Office Furniture",
-          "gIcon": "work", // Google Material Icon for office
-          "link": "/Category/Id/fhd/of/a"
-      },
-      {
           "name": "Garden & Outdoor",
           "gIcon": "grass", // Google Material Icon for outdoor/garden
           "link": "/Category/Id/fhd/go/a"
