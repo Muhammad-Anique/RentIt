@@ -69,8 +69,9 @@ function Login() {
 
       const data = await response.json();
       console.log(data);
-      dispatch(login({"username": data.userId, "password" : data.password}));
+      dispatch(login({"username": data.userId, "id" : data.userId}));
     
+      
      
       navigate(`/home/${data.userId}`)
     } catch (error) {
@@ -101,13 +102,13 @@ function Login() {
         { loginByEmail ===1 ? (<>
         
         <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-1 w-[70%]'>
-        <p className='text-xs text-gray-400 '>Kindly input your credentials to access and log in to the website's secured area.</p>
+        <p className='text-xs text-gray-600 '>Kindly input your credentials to access and log in to the website's secured area.</p>
 
         <div class="field field_v1 w-full mt-5">
         <label for="name" class="ha-screen-reader">Email</label>
         <input id="name" class="field__input" placeholder="e.g. Muhammad Anique" onChange={(e)=>{setEmail(e.target.value)}} />
         <span class="field__label-wrap" aria-hidden="true">
-            <span class="field__label"><span className='text-red-500'>*</span>Email</span>
+            <span class="field__label font-medium"><span className='text-red-500 '>*</span>Email</span>
         </span>
         </div>
 
@@ -115,7 +116,7 @@ function Login() {
         <label for="first-name" class="ha-screen-reader">Password</label>
         <input id="first-name" type="password" class="field__input" placeholder=" " onChange={(e)=>{setPassword(e.target.value)}}/>
         <span class="field__label-wrap" aria-hidden="true">
-            <span class="field__label"><span className='text-red-500'>*</span>Password</span>
+            <span class="field__label font-medium"><span className='text-red-500 '>*</span>Password</span>
         </span>
         </div>
         <button type="submit" className=' text-white  px-10 py-2 mt-7 w-full bg-[#041048]'>Login</button>

@@ -34,10 +34,14 @@ function ItemDetailPage() {
         fetchData();
       }, [itemId]);
 
+
+      useEffect(()=>{
+        setDisplayImage(item.image1)
+      },[item])
     
 
 
-    
+    const [displayImg, setDisplayImage] =useState()
     
 
     
@@ -46,12 +50,20 @@ function ItemDetailPage() {
     <div className='w-full h-auto flex flex-col items-center justify-center'>
        <div className='w-[70%]  h-auto py-2 px-2 font-medium mt-[85px]'>
             <h1 className='text-md '> {item.mainCategory}  &gt; {item.subCategory}  &gt; {item.type}</h1> 
-           <div className='flex flex-row justify-center items-center h-[400px] bg-[#ffffff] p-3 rounded-md mt-4'>
-            <div className='w-[50%] shadow-md flex items-center justify-center  h-full rounded-l-lg overflow-hidden '>
-                <img className='object-fit' src={item.image1}  alt="" />
+           <div className='flex flex-row justify-center items-center h-[400px] bg-[#ffffff] p-3 rounded-md mt-4 relative'>
+            <div className='w-[100%] bg-black shadow-md flex items-center justify-center  h-full rounded-lg overflow-hidden '>
+                <img className='object-fit' src={displayImg}  alt="" />
+            </div>
+            <div className=' h-[100px]  p-1 w-[300px] rounded-md absolute bottom-0 right-15 flex flex-row gap-3 items-center justify-center'>
+            <img src={item.image1} onClick={()=>{setDisplayImage(item.image1)}} className=' object-cover rounded-md w-[75px] h-auto shadow-lg cursor-pointer hover:scale-[1.2] ease-in-out duration-200 ' alt="" />
+            <img src={item.image2} onClick={()=>{setDisplayImage(item.image2)}} className=' object-cover rounded-md w-[75px] h-auto shadow-lg cursor-pointer hover:scale-[1.2] ease-in-out duration-200 ' alt="" />
+            <img src={item.image3} onClick={()=>{setDisplayImage(item.image3)}} className=' object-cover rounded-md w-[75px] h-auto shadow-lg cursor-pointer hover:scale-[1.2] ease-in-out duration-200 ' alt="" />
+            <img src={item.image4} onClick={()=>{setDisplayImage(item.image4)}} className=' object-cover rounded-md w-[75px] h-auto shadow-lg cursor-pointer hover:scale-[1.2] ease-in-out duration-200 ' alt="" />
+            <img src={item.image5} onClick={()=>{setDisplayImage(item.image5)}} className=' object-cover rounded-md w-[75px] h-auto shadow-lg cursor-pointer hover:scale-[1.2] ease-in-out duration-200 ' alt="" />
+
             </div>
 
-            <div className='w-[50%] h-full flex flex-col gap-2 px-2 '>
+            {/* <div className='w-[50%] h-full flex flex-col gap-2 px-2 '>
 
                 <div className='shadow-md  flex flex-row w-full gap-2 h-[50%]'>
                 <div className='w-[50%] h-full  overflow-hidden '>
@@ -72,7 +84,7 @@ function ItemDetailPage() {
                 </div>
                 </div>
                
-            </div>
+            </div> */}
            </div>
            <div className=' w-full h-auto flex flex-row justify-between gap-10 mt-5'>
                 <div className='flex flex-col mt-3 w-[50%]'>
@@ -108,27 +120,23 @@ function ItemDetailPage() {
                     <div className='bg-white shadow-lg w-full h-full rounded-lg  items-center flex border-[1px] border-[#ededed]  flex-col p-10'>
                         <div className='w-full h-[50%] flex flex-col justify-start items-center '>
                         <h1>Renting Details</h1>
-                        <div className='border-2 border-[#dcdcdc] h-[130px] w-[90%] flex flex-col justify-between  rounded-lg mt-5'>
+                        <div className='border-2 border-[#dcdcdc] h-[130px] w-[100%] flex flex-col justify-between  rounded-lg mt-5'>
                             <div className='flex flex-row justify-center gap-7 px-2 items-center   h-[50%]'>
                                 <div className='flex flex-col justify-center items-center'>
-                                    <h1 className='text-xs'>
+                                    <h1 className='text-sm font-bold'>
                                         From
                                     </h1>
-                                    <p className='text-[15px]'>
-                                        23-Oct-2013
-                                    </p>
+                                    <input type="date" className='text-xs' />
                                 </div>
                                 <div className='w-[1.5px] bg-[#dcdcdc] h-full'>
 
                                 </div>
                                 <div className='flex flex-col justify-center items-center'>
-                                    <h1 className='text-xs'>
+                                    <h1 className='text-sm font-bold'>
                                        To
                                     </h1>
-                                    <p className='text-[15px]'>
-                                        31-Dec-2023
-                                
-                                    </p>
+                                    <input type="date" className='text-xs cursor-pointer' />
+
 
                                 </div>
 
@@ -138,7 +146,7 @@ function ItemDetailPage() {
                                 </div>
                             <div className='flex justify-center items-center h-[50%]'>
 
-                                <h1>Avaliability</h1>
+                                <h1 className='font-medium'>Avaliability</h1>
 
                             </div>
 
@@ -146,9 +154,10 @@ function ItemDetailPage() {
 
                         </div>
                         <div className='w-full h-[50%]  flex flex-col justify-end'>
-                            <p className='text-[9px] text-[#7c7c7c]'>
+                            <p className='text-[12px] text-[#7c7c7c]'>
                            Item should be used carefully.
                            </p>
+                          
                             <hr className='bg-[#4b4b4b] mt-5' />
                             <div className='flex flex-row mt-5 justify-between items-center'>
                                 <h1 className='text-xl text-[#295Dc3] font-bold'>
@@ -160,15 +169,20 @@ function ItemDetailPage() {
 
                                 </h1>
                             </div>
-                         
+                            <div className='flex flex-row mt-2 justify-between items-center'>
+                                <h1 className='text-md text-[#6d6d6d]'>
+                                    Security Deposit 
+                                </h1>
+                                <h1>
+                                   {300}/-
 
+                                </h1>
+                            </div>                      
                         </div>
-                       
-                       
                     </div>
-                    <button className='text-white w-[100%] bg-[#295cd3] px-3 py-2 h-[50px] mt-[20px] rounded-lg'>
-                                RentIt
-                    </button>
+                    <a href="/home/1/chat" className='text-white w-[100%] bg-[#295cd3] px-3 py-2 h-[50px] mt-[20px] rounded-lg hover:bg-pr1'>
+                                Chat
+                    </a>
                    
 
 

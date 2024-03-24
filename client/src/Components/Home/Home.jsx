@@ -18,7 +18,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 
 function Home() {
- 
+    
     const [query, setQuery] =useState('')
     const navigate = useNavigate()
 

@@ -1,6 +1,7 @@
 const pool = require('../dbConfig');
 const itemQueries = require('../itemModule/searchItemModule/filterItemQueries'); // Adjust path if needed
 const addItemQueries =require('../itemModule/addItemModule/addItemQueries')
+
 const getAllItems = (req, res) => {
   pool.query(itemQueries.getAllItems, (error, results) => {
     if (error) {
@@ -196,6 +197,31 @@ const getTypeIdAndType= (req, res) => {
   });
 };
 
+
+
+const deleteItemById = (req, res) => {
+  const itemId = req.params.id; // Assuming itemId is provided as a parameter
+
+  pool.query(
+    'DELETE FROM items WHERE itemId = ?',
+    [itemId],
+    (error, results) => {
+      if (error) {
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Error deleting item' });
+      } else {
+        if (results.affectedRows > 0) {
+          res.json({ message: 'Item deleted successfully' });
+        } else {
+          res.status(404).json({ error: 'Item not found' });
+        }
+      }
+    }
+  );
+};
+
+
+
 const addItemWithDetails = (req, res) => {
   var Id = 0;
   pool.query(`SELECT (MAX(itemId)+1) as id FROM rentitschema.items;`,(error, results) => {
@@ -270,6 +296,75 @@ const addItemWithDetails = (req, res) => {
 };
 
 
+const updateItemWithDetails = (req, res) => {
+  const itemId = req.params.id; // Assuming itemId is provided in the request parameters
+
+  const {
+    itemName,
+    itemDescription,
+    itemCondition,
+    itemRent,
+    itemLocation,
+    itemTermsConditions,
+    itemUsageDetails,
+    itemKeywords,
+    itemType,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5
+  } = req.body;
+
+
+  pool.query(
+    `UPDATE rentitschema.items
+    SET
+    itemName = ?,
+    itemDescription = ?,
+    itemCondition = ?,
+    itemRent = ?,
+    itemLocation = ?,
+    itemTermsConditions = ?,
+    itemUsageDetails = ?,
+    keywords = ?,
+    itemCategory = ?,
+    image1 = ?,
+    image2 = ?,
+    image3 = ?,
+    image4 = ?,
+    image5 = ?
+    WHERE itemId = ? `,
+    [
+      itemName,
+      itemDescription,
+      itemCondition,
+      itemRent,
+      itemLocation,
+      itemTermsConditions,
+      itemUsageDetails,
+      itemKeywords,
+      itemType,
+      image1,
+      image2,
+      image3,
+      image4,
+      image5,
+      itemId // Adding itemId as the last parameter for the WHERE clause
+    ],
+    (error, results) => {
+      if (error) {
+        console.error('Error updating item:', error);
+        res.status(500).json({ error: 'Error updating item' });
+      } else {
+        console.log(results[0]);
+        res.status(200).json({ success: 'Item updated successfully' });
+      }
+    }
+  );
+};
+
+
 const getItemByCity = (req, res) => {
   const city = req.params.city; 
   const param =`%${city}%`
@@ -302,6 +397,72 @@ const getItemBySearchQuery = (req, res) => {
   });
 };
 
+
+
+
+
+
+
+
+const addConversation = (req, res) => {
+  const { participant1, participant2, unReadCount, status } = req.body;
+  pool.query(
+    'INSERT INTO rentitschema.conversation (participant1, participant2, unReadCount, status) VALUES (?, ?, ?, ?)',
+    [participant1, participant2, unReadCount, status],
+    (error, results) => {
+      if (error) {
+        console.error('Error inserting conversation:', error);
+        return res.status(500).json({ error: 'Error inserting conversation' });
+      }
+      console.log('Conversation inserted successfully:', results);
+      res.status(200).json({ success: 'Conversation inserted successfully' });
+    }
+  );
+};
+
+
+
+
+const getConversations = (req, res) => {
+  // Extract participantId from request parameters
+  const participantId = req.params.participantid;
+  const query = `
+    SELECT 
+        c.id AS conversationId,
+        c.created_at AS createdAt,
+        c.participant1 AS participant1Id,
+        u1.name AS participant1Name,
+        u1.email AS participant1Email,
+        u1.profilePic AS participant1ProfilePic,
+        c.participant2 AS participant2Id,
+        u2.name AS participant2Name,
+        u2.email AS participant2Email,
+        u2.profilePic AS participant2ProfilePic,
+        c.unReadCount,
+        c.status
+    FROM 
+        rentitschema.conversation AS c
+    JOIN
+        rentitschema.users AS u1 ON c.participant1 = u1.userId
+    JOIN
+        rentitschema.users AS u2 ON c.participant2 = u2.userId
+    WHERE
+        c.participant1 = ? OR c.participant2 = ?`;
+
+  // Execute the query with participantId as parameter
+  pool.query(query, [participantId, participantId], (error, results) => {
+    if (error) {
+      console.error('Error retrieving conversations:', error);
+      return res.status(500).json({ error: 'Error retrieving conversations' });
+    }
+    console.log('Conversations retrieved successfully:', results);
+    res.status(200).json(results);
+  });
+};
+
+
+
+
 module.exports = {
     getAllItems,
     getItemByMainCat,
@@ -310,7 +471,11 @@ module.exports = {
     addItemWithDetails,
     getItemByID,
     getItemByCity,
-    getItemBySearchQuery
+    getItemBySearchQuery,
+    getConversations,
+    addConversation,
+    deleteItemById,
+    updateItemWithDetails
   
   };
   

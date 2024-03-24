@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import logo from  '../../Assets/logo.png'
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { selectUsername, selectPassword, selectIsAuthenticated } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
 
 function Navbar(props) {
   
   const username = useSelector(selectUsername);
-  const password = useSelector(selectPassword);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const navigate = useNavigate()
+
+  const authId = useSelector(state => state.auth.id);
+  const authBool = useSelector(state => state.auth.isAuthenticated);
+  if(!authBool){
+    navigate("/")     
+  }
+
   const [data, setData] =useState()
   const [username_, setUsername_] =useState(username)
   useEffect(() => {

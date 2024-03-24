@@ -57,7 +57,7 @@ HELPERS
   
     display: var(--fieldDisplay, inline-flex);
     position: relative;
-    font-size: var(--fieldFontSize, 0.8rem);
+    font-size: var(--fieldFontSize, 0.95rem);
   }
   
   .field__input{

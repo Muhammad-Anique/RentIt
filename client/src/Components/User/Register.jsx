@@ -11,7 +11,7 @@ import Navbar from '../NavBar/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer , toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import './cb.css'
 import { imageDB } from '../Item/config'
 import { getDownloadURL, getStorage, ref,uploadBytes } from 'firebase/storage'
 import {v4} from 'uuid'
@@ -221,7 +221,7 @@ const uploadImageToFirebase = async (img) => {
 <div className='flex flex-col justify-center'>
   
 <div className='w-full h-[65px]'></div>
-<div className='bg-white rounded-xl w-[530px] h-[620px] overflow-x-hidden custom-scrollbar  overflow-y-auto  my-auto flex flex-col justify-baseline items-center py-10 z-10 '>
+<div className='bg-white rounded-xl w-[530px] h-[720px] overflow-x-hidden custom-scrollbar  overflow-y-auto  my-auto flex flex-col justify-baseline items-center py-10 z-10 '>
         <h1 className='text-center font-bold text-[#0A1048] text-4xl mt-3 '>Welcome to <br /> RentIt</h1>
         <div className='w-[70%]  flex flex-col justify-center items-center gap-1 mt-5'>
           <div className='flex flex-col justify-center items-center gap-1 w-full'>
@@ -231,7 +231,7 @@ const uploadImageToFirebase = async (img) => {
             <input id="name" class="field__input" placeholder="Muhammad Anique" name="name" value={formData.name}
         onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
-              <span class="field__label"><span className='text-red-500'>*</span>Name</span>
+              <span class="field__label "><span className='text-red-500'>*</span>Name</span>
             </span>
           </div>
 
@@ -240,7 +240,7 @@ const uploadImageToFirebase = async (img) => {
             <input id="first-name" class="field__input" placeholder="email@example.com" name="email"  value={formData.email}
         onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
-              <span class="field__label"><span className='text-red-500'>*</span>Email</span>
+              <span class="field__label "><span className='text-red-500'>*</span>Email</span>
             </span>
           </div>
 
@@ -318,7 +318,7 @@ const uploadImageToFirebase = async (img) => {
           <ToastContainer position="top-right" autoClose={3000} />
         </div>
 
-        <Link to="/login" className='text-xs mt-4'>Already have an account? <span className='text-[#0A1048] text-xs font-bold ' href="">Login</span> </Link>
+        <Link to="/login" className='text-md mt-4'>Already have an account? <span className='text-[#0A1048] text-md font-bold hover:text-pr ' href="">Login</span> </Link>
     </div>     
     </div>
 

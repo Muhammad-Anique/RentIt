@@ -10,7 +10,8 @@ import { selectUsername, selectPassword, selectIsAuthenticated } from '../../sto
 function Navbar_() {
   const username = useSelector(selectUsername);
   const password = useSelector(selectPassword);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const authId = useSelector(state => state.auth.id);
+  const authBool = useSelector(state => state.auth.isAuthenticated);
   const [menu, setMenu] =useState('hidden')
   const [userMenu, setUserMenu] =useState('absolute')
   const [isOpen, setIsOpen] =useState(false)
@@ -20,12 +21,11 @@ function Navbar_() {
   const [redirectAdd, setRedirectAdd] =useState('/login')
  
  useEffect(()=>{
-  if(isAuthenticated)
-  setRedirectAdd('/add')
-else{
-  setRedirectAdd('/login')
-}
-
+  if(authBool)
+    setRedirectAdd('/add')
+  else{
+    setRedirectAdd('/login')
+  }
  },[])
 
 
@@ -34,7 +34,7 @@ else{
   
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/users/${username_}`); 
+        const response = await fetch(`http://localhost:8080/users/${authId}`); 
         if (response.ok) {
           const result = await response.json();
           setData(result); 
@@ -125,14 +125,14 @@ else{
       </Link>
 
 
-      <Link to='/howitworks' className='hover:text-[#295cd3]'>
+      {/* <Link to='/howitworks' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
         question_mark
         </span>
         <p>How It Works</p>
       </div>
-      </Link>
+      </Link> */}
 
 
       <Link to='/Category/Id/a/a/a' className='hover:text-[#295cd3]'>
@@ -231,7 +231,7 @@ else{
      
 
 
-      <Link to='/' className='hover:text-[#295cd3] mt-3'>
+      <Link to='/home/:id/profile' className='hover:text-[#295cd3] mt-3'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       info

@@ -22,7 +22,7 @@ import { getDownloadURL, getStorage, ref,uploadBytes } from 'firebase/storage'
 
 import {v4} from 'uuid'
 
-function AddItem() {
+function AddItem(props) {
   let { id } = useParams();
   console.log("USERID HERE IS = > ",id)
 
@@ -528,6 +528,16 @@ const handleSubmit = async (e) => {
             onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Item Rent Rs.</span>
+            </span>
+          </div>
+
+          
+          <div class="field field_v1 w-full">
+            <label for="security" class="ha-screen-reader">Item Rent</label>
+            <input type="number" id="security" class="field__input" placeholder=" " name="itemSecurity"  value={formValues.itemRent}
+            onChange={handleInputChange}/>
+            <span class="field__label-wrap" aria-hidden="true">
+              <span class="field__label"><span className='text-red-500'>*</span>Security Deposit Rs.</span>
             </span>
           </div>
 

@@ -84,10 +84,34 @@ const registerUser = (req, res) => {
 };
 
 
+const getUserWithItems = (req, res) => {
+  const userId = req.params.id; // Assuming userId is provided in the request parameters
+
+  pool.query(
+    `SELECT * FROM users
+    JOIN items ON users.userId = items.OwnerId
+    JOIN itemcategories ON items.itemCategory = itemcategories.categoryID 
+    WHERE users.userId = ?`,
+    [userId],
+    (error, results) => {
+      if (error) {
+        console.error('Error fetching user with items:', error);
+        res.status(500).json({ error: 'Error fetching user with items' });
+      } else {
+        res.json(results);
+      }
+    }
+  );
+};
+
+
+
+
 
 module.exports = {
   getAllUsers,
   getUserById,
   registerUser,
   getUserByEmailAndPassword,
+  getUserWithItems
 };

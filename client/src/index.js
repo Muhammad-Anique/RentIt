@@ -16,9 +16,13 @@ import CategoryPage from './Components/CategoryPage/CategoryPage';
 import ItemDetailPage from './Components/Item/ItemDetailPage';
 import store from './store/store.js'
 import { Provider } from 'react-redux';
-import AddItem from './Components/Item/AddItem.jsx';
 import TermsAndConditions from './Components/Terms/TermsAndConditions.jsx';
 import HowItWorks from './Components/HowItWorks/HowItWorks.jsx';
+import Profile from './Components/User/Profile.jsx';
+import Chat from './Components/ChatBox/Chat.jsx';
+import {persistor} from './store/store'
+import AddItem from './Components/Item/AddItem.jsx'
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 const router = createBrowserRouter([
@@ -46,6 +50,7 @@ const router = createBrowserRouter([
         path:"/add",
         element:<AddItem/>
       },
+      
      
     ]
 
@@ -66,8 +71,17 @@ const router = createBrowserRouter([
         path:"/home/:id/add",
         element:<AddItem/>
       },
+     
     ]
 
+  },
+  {
+    path:"/home/:id/profile",
+    element:<Profile/>
+  },
+  {
+    path:"/home/:id/chat",
+    element:<Chat/>
   },
   {
     path:"/login",
@@ -107,9 +121,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-    <RouterProvider router={router} />
-    </Provider>
+      <Provider store={store}>
+        <PersistGate  persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
   </React.StrictMode>
 );
 
