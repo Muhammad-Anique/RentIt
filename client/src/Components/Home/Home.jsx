@@ -13,6 +13,8 @@ import Pr1 from '../../Assets/Pr1.png'
 import Navbar from '../NavBar/Navbar'
 import Footer from '../Footer/Footer'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../store/Slices/authSlice'
 
 
 
@@ -21,12 +23,17 @@ function Home() {
     
     const [query, setQuery] =useState('')
     const navigate = useNavigate()
-
+    // const dispatch =useDispatch()
      function handleSearch() {
+       
+     
+
         const Q_= query.replace(/-/g, 'fff');
         const Q= Q_.replace(/ /g, '-');
         navigate(`/Category/Id/a/a/a/q/${Q}`)
      }
+
+   
 
 
 

@@ -10,8 +10,10 @@ router.post('/addItem/', itemController.addItemWithDetails);
 router.get('/:itemId', itemController.getItemByID)
 router.get('/city/:city', itemController.getItemByCity)
 router.get('/query/:query', itemController.getItemBySearchQuery)
-router.get('/get/all/conv/:participantid', itemController.getConversations);
 router.delete('/delete/:id', itemController.deleteItemById)
 router.put('/update/:id', itemController.updateItemWithDetails)
+router.get('/rentings/get/:renter', itemController.getRentingsByRenterId)
+router.post('/rentings/post/:renter/:item', itemController.insertRenting)
+router.get('/rentings/get/item/:item', itemController.getRentingsByItem)
 
 module.exports = router;

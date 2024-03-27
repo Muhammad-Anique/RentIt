@@ -88,6 +88,10 @@ const router = createBrowserRouter([
     element: <Login/>
   },
   {
+    path:"/otp/:em",
+    element: <Login bit={1}/>
+  },
+  {
     path:"/register",
     element: <Register/>
   },

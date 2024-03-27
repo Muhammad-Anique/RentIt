@@ -181,7 +181,8 @@ const uploadImageToFirebase = async (img) => {
           console.log('Data submitted successfully!');
           notifyS('Registeration Successful')
           setTimeout(() => {
-            navigate('/login')
+
+            navigate(`/otp/${formData.email}`)
           }, 3000);
          
           

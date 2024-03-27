@@ -7,7 +7,7 @@ import cloud2 from '../../Assets/cloud2.png'
 
 import google from '../../Assets/google_l.png'
 import Navbar from '../NavBar/Navbar'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,11 @@ import { login, logout } from '../../store/Slices/authSlice'; // Replace with th
 import { ToastContainer , toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Login() {
+
+
+function Login(props) {
+  const bit  = props.bit
+  const { em } = useParams()
   const navigate = useNavigate()
   const notifyF = (msg) => {
     toast.error(msg, {
@@ -35,7 +39,7 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const [loginByEmail, setLoginByEmail] =useState(0)
+  const [loginByEmail, setLoginByEmail] =useState(1)
   const [email, setEmail] =useState('')
   const [password, setPassword] =useState('')
 
@@ -75,14 +79,68 @@ function Login() {
      
       navigate(`/home/${data.userId}`)
     } catch (error) {
-      notifyF("Incorrect Email or Password")
+      notifyF("Incorrect Credentials or Account Not Verified.")
       
       console.error('There was a problem with the fetch operation:', error);
     }
   };
 
   
-
+  function OTP() {
+    const [otp, setOTP] = useState(['', '', '', '', '', '']);
+  
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        // Concatenate OTP
+        const concatenatedOTP = otp.join('');
+        
+        // Send concatenated OTP to API
+        const response = await fetch(`http://localhost:8080/update/status/${em}/${concatenatedOTP}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                otp: concatenatedOTP
+            })
+        });
+        
+        // Handle response
+        if (response.ok) {
+           notifyS("Account Verified")
+        } else {
+           notifyF("Wrong OTP")
+        }
+    };
+  
+    const handleOTPPartChange = (index, value) => {
+        const newOTP = [...otp];
+        newOTP[index] = value;
+        setOTP(newOTP);
+    };
+  
+    return (
+        <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-1 w-[70%]'>
+            <p className='text-xs text-gray-600'>Kindly input your OTP to get verified and log in to the website's secured area.</p>
+  
+            <div className="flex gap-3 mt-5">
+                {otp.map((value, index) => (
+                    <input
+                        key={index}
+                        type="text"
+                        className=" w-[47px] h-[47px] rounded-xl border-2 border-pr1 font-bold flex items-center justify-center text-3xl text-center "
+                        value={value}
+                        onChange={(e) => handleOTPPartChange(index, e.target.value)}
+                        maxLength={1}
+                    />
+                ))}
+            </div>
+  
+            <button type="submit" className='text-white px-10 py-2 mt-7 w-full bg-[#041048]'>verify</button>
+        </form>
+    );
+  }
 
 
   return (
@@ -99,30 +157,32 @@ function Login() {
     <ToastContainer position="top-right" autoClose={3000} />
         <h1 className='text-center font-bold text-[#0A1048] text-4xl '>Welcome to <br /> RentIt</h1>
 
-        { loginByEmail ===1 ? (<>
+        { loginByEmail ===1 ? (
+        bit ? (<OTP/>) :(<>
+          <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-1 w-[70%]'>
+          <p className='text-xs text-gray-600 '>Kindly input your credentials to access and log in to the website's secured area.</p>
+  
+          <div class="field field_v1 w-full mt-5">
+          <label for="name" class="ha-screen-reader">Email</label>
+          <input id="name" class="field__input" placeholder="e.g. Muhammad Anique" onChange={(e)=>{setEmail(e.target.value)}} />
+          <span class="field__label-wrap" aria-hidden="true">
+              <span class="field__label font-medium"><span className='text-red-500 '>*</span>Email</span>
+          </span>
+          </div>
+  
+          <div class="field field_v1 w-full">
+          <label for="first-name" class="ha-screen-reader">Password</label>
+          <input id="first-name" type="password" class="field__input" placeholder=" " onChange={(e)=>{setPassword(e.target.value)}}/>
+          <span class="field__label-wrap" aria-hidden="true">
+              <span class="field__label font-medium"><span className='text-red-500 '>*</span>Password</span>
+          </span>
+          </div>
+          <button type="submit" className=' text-white  px-10 py-2 mt-7 w-full bg-[#041048]'>Login</button>  
+          </form></>)
         
-        <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-1 w-[70%]'>
-        <p className='text-xs text-gray-600 '>Kindly input your credentials to access and log in to the website's secured area.</p>
-
-        <div class="field field_v1 w-full mt-5">
-        <label for="name" class="ha-screen-reader">Email</label>
-        <input id="name" class="field__input" placeholder="e.g. Muhammad Anique" onChange={(e)=>{setEmail(e.target.value)}} />
-        <span class="field__label-wrap" aria-hidden="true">
-            <span class="field__label font-medium"><span className='text-red-500 '>*</span>Email</span>
-        </span>
-        </div>
-
-        <div class="field field_v1 w-full">
-        <label for="first-name" class="ha-screen-reader">Password</label>
-        <input id="first-name" type="password" class="field__input" placeholder=" " onChange={(e)=>{setPassword(e.target.value)}}/>
-        <span class="field__label-wrap" aria-hidden="true">
-            <span class="field__label font-medium"><span className='text-red-500 '>*</span>Password</span>
-        </span>
-        </div>
-        <button type="submit" className=' text-white  px-10 py-2 mt-7 w-full bg-[#041048]'>Login</button>
         
         
-        </form></>) : (<div className='w-[70%] flex flex-col justify-center items-center gap-2'>
+        ) : (<div className='w-[70%] flex flex-col justify-center items-center gap-2'>
         <div className='border-2 font-normal w-full h-[45px] flex flex-row justify-center items-center hover:bg-[#e6e6e9] '>
             <img src={google} className="h-[23px]" alt="" />
             <p className='text-[#4b4b4b] ml-2'>Continue with Google</p>
@@ -146,3 +206,5 @@ function Login() {
 }
 
 export default Login
+
+

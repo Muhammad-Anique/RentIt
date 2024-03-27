@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import logo from  '../../Assets/logo.png'
 import { Link,useNavigate } from 'react-router-dom'
 import '../../Assets/button.css'
-import { useSelector } from 'react-redux';
-import { selectUsername, selectPassword, selectIsAuthenticated } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUsername, selectPassword, selectIsAuthenticated, logout } from '../../store/Slices/authSlice'; // Update with the correct path to your selectors file
 
 
 
@@ -19,7 +19,7 @@ function Navbar_() {
   const [data, setData] =useState()
   const [username_, setUsername_] =useState(username)
   const [redirectAdd, setRedirectAdd] =useState('/login')
- 
+ const dispatch = useDispatch()
  useEffect(()=>{
   if(authBool)
     setRedirectAdd('/add')
@@ -215,11 +215,11 @@ function Navbar_() {
 
 
 
-    <div className={`w-[320px] z-[10] text-sm ${data ? 'h-[320px]' : 'h-[135px]'}  bg-white border-2 text-[#414141] border-[#f5f5f5] gap-2 shadow-md rounded-md flex flex-col py-6 px-6 ${userMenu} transition-opacity ${isOpenUM ? 'opacity-100' : 'opacity-0 invisible'} ease-in-out duration-300 top-[70px] right-[35px]`}>
-       {data ? (<>  <Link to='/' className='hover:text-[#295cd3]'>
+    <div className={`w-[290px] z-[10] text-sm ${data ? 'h-[280px]' : 'h-[135px]'}  bg-white border-2 text-[#414141] border-[#f5f5f5] gap-2 shadow-md rounded-md flex flex-col py-6 px-6 ${userMenu} transition-opacity ${isOpenUM ? 'opacity-100' : 'opacity-0 invisible'} ease-in-out duration-300 top-[70px] right-[35px]`}>
+       {data ? (<>  <Link to={`/home/${authId}/profile`} className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
-        <div className='overflow-hidden w-[50px] h-[50px] rounded-full'>
-        <img className='object-cover scale-125 translate-y-1' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLOuwxvhO9v43aPzKbcEGyRNyztwGAu0jz1kr7TqxUrMVYw5ecTY5dwZVM5p4TmaT1k1M&usqp=CAU" alt="" />
+        <div className='overflow-hidden w-[50px] h-[50px] rounded-full bg-pr1 flex items-center justify-center'>
+        <img className='object-cover scale-125 translate-y-1' src={data.profilePic} alt="" />
         </div>
         <div>
         <p>Hello! </p>
@@ -231,7 +231,7 @@ function Navbar_() {
      
 
 
-      <Link to='/home/:id/profile' className='hover:text-[#295cd3] mt-3'>
+      <Link to={`/home/${authId}/profile`} className='hover:text-[#295cd3] mt-3'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       info
@@ -241,17 +241,17 @@ function Navbar_() {
       </Link>
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      {/* <Link to='/' className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
         question_mark
         </span>
         <p>View History</p>
       </div>
-      </Link>
+      </Link> */}
 
 
-      <Link to='/' className='hover:text-[#295cd3]'>
+      <Link to={`/home/${authId}/chat`} className='hover:text-[#295cd3]'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
         message
@@ -276,14 +276,14 @@ function Navbar_() {
       </div>
 
 
-      <Link to='/' className='hover:text-[#295cd3] mt-2'>
+      <button onClick={()=>{dispatch(logout()); navigate('/')}} className='hover:text-[#295cd3] mt-2'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       apps
       </span>
         <p>LogOut</p>
       </div>
-      </Link>
+      </button>
       </>): (<>
       <Link to='/login' className='hover:text-[#295cd3] mt-2'>
       <div className='flex flex-row gap-3 items-center'>

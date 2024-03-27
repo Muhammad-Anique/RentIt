@@ -401,64 +401,50 @@ const getItemBySearchQuery = (req, res) => {
 
 
 
+const insertRenting = (req, res) => {
+  const { renter, item } = req.params;
 
-
-
-const addConversation = (req, res) => {
-  const { participant1, participant2, unReadCount, status } = req.body;
-  pool.query(
-    'INSERT INTO rentitschema.conversation (participant1, participant2, unReadCount, status) VALUES (?, ?, ?, ?)',
-    [participant1, participant2, unReadCount, status],
-    (error, results) => {
+  pool.query('INSERT INTO Rentings (renterId, itemId) VALUES (?, ?)', [renter, item], (error, results) => {
       if (error) {
-        console.error('Error inserting conversation:', error);
-        return res.status(500).json({ error: 'Error inserting conversation' });
+          console.error('Error inserting renting:', error);
+          res.status(500).json({ error: 'Error inserting renting' });
+      } else {
+          res.status(201).json({ message: 'Renting inserted successfully' });
       }
-      console.log('Conversation inserted successfully:', results);
-      res.status(200).json({ success: 'Conversation inserted successfully' });
-    }
-  );
-};
-
-
-
-
-const getConversations = (req, res) => {
-  // Extract participantId from request parameters
-  const participantId = req.params.participantid;
-  const query = `
-    SELECT 
-        c.id AS conversationId,
-        c.created_at AS createdAt,
-        c.participant1 AS participant1Id,
-        u1.name AS participant1Name,
-        u1.email AS participant1Email,
-        u1.profilePic AS participant1ProfilePic,
-        c.participant2 AS participant2Id,
-        u2.name AS participant2Name,
-        u2.email AS participant2Email,
-        u2.profilePic AS participant2ProfilePic,
-        c.unReadCount,
-        c.status
-    FROM 
-        rentitschema.conversation AS c
-    JOIN
-        rentitschema.users AS u1 ON c.participant1 = u1.userId
-    JOIN
-        rentitschema.users AS u2 ON c.participant2 = u2.userId
-    WHERE
-        c.participant1 = ? OR c.participant2 = ?`;
-
-  // Execute the query with participantId as parameter
-  pool.query(query, [participantId, participantId], (error, results) => {
-    if (error) {
-      console.error('Error retrieving conversations:', error);
-      return res.status(500).json({ error: 'Error retrieving conversations' });
-    }
-    console.log('Conversations retrieved successfully:', results);
-    res.status(200).json(results);
   });
 };
+
+
+
+const getRentingsByRenterId = (req, res) => {
+  const renter = req.params.renter; // Assuming renterId is provided in the request parameters
+
+  pool.query('select * from items join rentings on items.itemId = rentings.itemId WHERE rentings.renterId = ?', [renter], (error, results) => {
+      if (error) {
+          console.error('Error fetching rentings by renterId:', error);
+          res.status(500).json({ error: 'Error fetching rentings by renterId' });
+      } else {
+          res.status(200).json(results);
+      }
+  });
+};
+
+
+
+
+const getRentingsByItem = (req, res) => {
+  const item = req.params.item; // Assuming renterId is provided in the request parameters
+
+  pool.query('SELECT * FROM Rentings WHERE itemId = ?', [item], (error, results) => {
+      if (error) {
+          console.error('Error fetching rentings by itemId:', error);
+          res.status(500).json({ error: 'Error fetching rentings by itemId' });
+      } else {
+          res.status(200).json(results);
+      }
+  });
+};
+
 
 
 
@@ -472,10 +458,11 @@ module.exports = {
     getItemByID,
     getItemByCity,
     getItemBySearchQuery,
-    getConversations,
-    addConversation,
     deleteItemById,
-    updateItemWithDetails
+    updateItemWithDetails,
+    insertRenting,
+    getRentingsByRenterId,
+    getRentingsByItem
   
   };
   

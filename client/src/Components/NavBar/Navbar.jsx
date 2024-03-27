@@ -10,11 +10,7 @@ function Navbar(props) {
   const username = useSelector(selectUsername);
   const navigate = useNavigate()
 
-  const authId = useSelector(state => state.auth.id);
-  const authBool = useSelector(state => state.auth.isAuthenticated);
-  if(!authBool){
-    navigate("/")     
-  }
+ 
 
   const [data, setData] =useState()
   const [username_, setUsername_] =useState(username)
@@ -28,7 +24,7 @@ function Navbar(props) {
           setData(result); 
 
          console.log("Errror tis there")
-          console.log(result)
+          console.log("wego",result)
         } else {
           throw new Error('Failed to fetch data');
         }
@@ -70,7 +66,7 @@ function Navbar(props) {
        props.loggedIn===1 || data ? (
         <div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
         {
-          <h1>Hello <span className='font-bold'>{lastName}</span> </h1>
+          <h1 onClick={()=>{navigate(`/home/${data.userId}/profile`)}}>Hello <span className='font-bold'>{lastName}</span> </h1>
         }   
          
       </div>
@@ -90,3 +86,13 @@ function Navbar(props) {
 }
 
 export default Navbar
+
+
+
+
+
+// const authId = useSelector(state => state.auth.id);
+// const authBool = useSelector(state => state.auth.isAuthenticated);
+// if(!authBool){
+//   navigate("/")     
+// }

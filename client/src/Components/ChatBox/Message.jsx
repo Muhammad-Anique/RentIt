@@ -1,128 +1,127 @@
 import React, { useEffect, useState } from 'react'
-import supabase from '../config/supabaseClient';
 
 
 function Message(props) {
 
 
 
-    const { message, user, receiver } = props;
+    const { message, user, receiver,isMe } = props;
+    console.log("IN me", user)
+    console.log("In Message,")
     const [activityFound, setActivityFound] =useState(false)
     const [name, setName] =useState('')
     const [type, setType] =useState('')
     const [activity,setActivity]=useState('')
-    const [content, setContent] =useState(message.messageContent)
+    const [content, setContent] =useState(message.text)
     const [receiverImage, setReciverImage] =useState(receiver.profilePic)
     const [senderImage, setSenderImage] =useState(user.profilePic) 
    
-
+    const [isDisable, setisDisable] =useState(false)
+    
+    const [item, setItem] =useState(null)
     useEffect(()=>{
-      function getActivivtyFromMessage(message) {
-        console.log("The message : - ", message)          
-        // Regular expression patterns to match the tags and values
-        let activityPattern = /<\$%activity%\$>\s*([^<>]+)\s*<\$%activity%\$>/;
-        let namePattern = /<\$%name%\$>\s*([^<>]+)\s*<\$%name%\$>/;
-        let typePattern = /<\$%type%\$>\s*([^<>]+)\s*<\$%type%\$>/;
-
-        // Extract activity
-        let activityMatch = message.match(activityPattern);
-        let activity = activityMatch ? activityMatch[1] : null;
-
-        // Extract name
-        let nameMatch = message.match(namePattern);
-        let name = nameMatch ? nameMatch[1] : null;
-
-        // Extract type
-        let typeMatch = message.match(typePattern);
-        let type = typeMatch ? typeMatch[1] : null;
-
-        // Output extracted values
-        console.log("Activity__:", activity);
-        console.log("Name__:", name);
-        console.log("Type__:", type);
-  
-        if (activity && name && type) {
-            setActivityFound(true)
-            setName(name)
-            setType(type)
-            setActivity(activity)
-            setContent("Hey!")
-
-            console.log("Name:", name);
-            console.log("Type:", type);
-            console.log("Activity:", activity);
-
+      function extractNumericId(str) {
+        const regex = /###item:(\d+)###/; // Regular expression to match the pattern
+        const match = str.match(regex); // Use match method to find matches
+        
+        if (match && match[1]) {
+          return parseInt(match[1]); // Return the numeric ID as an integer
         } else {
-            console.log("No match found.");
+          return null; // Return null if no match is found or if match[1] is not defined
         }
       }
 
-      getActivivtyFromMessage(message.messageContent)
+      const fetchData = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:8080/item/${id}`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const result = await response.json();
+          console.log("Fetched data:", result);
+    
+          if (result && result.length > 0 && result[0].itemName) {
+            setItem(result[0]);
+            try {
+              const response = await fetch(`http://localhost:8080/item/rentings/get/item/${result[0].itemId}`);
+              if (!response.ok) {
+                  throw new Error('Failed to fetch rentings by item');
+              }
+              const data = await response.json();
+              if(data.length>0){
+                setisDisable(true)
 
+              }
+              return data;
+          } catch (error) {
+              console.error('Error:', error);
+              // Handle error
+          }
+          } else {
+            console.error('Invalid data structure or empty result');
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }      
+      };
+
+
+
+
+
+     const id =  extractNumericId(message.text)
+     if(id){
+      fetchData(id);
+      setContent("I need this product. Kindly inform me about the details")
+     }
     },[])
-
-    // Regular expression pattern to match the tag and values
-   
-    // Function to format time from timestamp
+    
     const formatTime = (timestamp) => {
       const date = new Date(timestamp);
       return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
   
-    // Determine the sender's name
-    const senderName = message.senderId === receiver.id ? receiver.name : (message.senderId === user.id ? 'Me' : '');
-  
-    
+    // // Determine the sender's name
+    const senderName = message.senderId === receiver.id ? receiver.name : (message.senderId === user.userId ? 'Me' : '');
+   
+    // Inserting a new renting
+    const insertRenting = async (renterId, itemId) => {
+      try {
+          const response = await fetch(`http://localhost:8080/item/rentings/post/${renterId}/${itemId}`, {
+              method: 'POST'
+          });
+          if (!response.ok) {
+              throw new Error('Failed to insert renting');
+          }
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          console.error('Error:', error);
+          // Handle error
+      }
+    };
 
     return (
       <div className='flex-col px-3 py-2 '>
-        { activityFound ? (  <div className='border-2 border-gray-200 flex flex-row items-center justify-between w-full h-auto m-1 mb-2 rounded-xl p-4 shadow-md'>
-        <div className='flex flex-col'>
-        <h1 className='font-bold text-primary3  '>{type}</h1>
-         <p className=' text-primary2'>{activity}</p>
-        </div>
-        {
-          props.convStatus == "pending" && message.senderId!==props.user.id ? (
-            <div className='flex flex-col gap-2'>
-            <button onClick={async()=>{
-                     
-            const { data, error } = await supabase
-            .from('conversation')
-            .update({ status: 'rejected' })
-            .eq('id', props.message.conversationId)
-            .select()
-            if(data){
-              alert("Request Rejected Successfully")
-            }
-        
-            }} className='rounded-lg  bg-red-500 text-white px-4 py-1' >Reject</button>
-            <button onClick={async()=>{
-            const { data, error } = await supabase
-            .from('conversation')
-            .update({ status: 'active' })
-            .eq('id', props.message.conversationId)
-            .select()
-            if(data){
-              alert("Request Accepted Successfully")
-              setTimeout(() => {
-                window.location.reload();
-              }, 200);
-            }
 
-            }} className='rounded-lg bg-green-500 text-white px-4 py-1' >Accept</button>
-          </div>
-          ) : (
-            props.convStatus == "pending" && message.senderId===props.user.id ? ( <h1 className='font-bold mr-2 border-2 p-2 rounded-lg'>Request Pending</h1> ) : ( <></>)
-          )
-        }
-       
-       
-        </div>) : (<></>)}
-      
-      {
-        props.convStatus=== "active" ? (
-          <>
-           <div className='flex flex-row gap-2 items-center'>
+           { item  ? ( <div name="item" className='flex flex-row bg-gray-100 rounded-xl border border-gray-200 overflow-hidden w-full h-[180px] mb-6 '>
+            <div className='flex overflow-hidden w-[160px] h-[180px]'>
+            <img src={item.image1} className='object-cover' alt="" />
+            </div>
+            <div className='flex flex-col p-5 w-[100%]'>
+              <h1 className='font-bold '>{item.itemName}</h1>
+              <h1 className='text-gray-600'>{item.itemDescription} </h1>
+              <h1 className='font-bold text-lg text-pr2 '>{item.itemRent}/-</h1>
+              <h1 className='font-bold text-sm text-pr2'> <span className='font-medium text-black'>From</span> 25th March 2011 <span className='font-medium text-black'>To</span> 26th March 2011</h1>
+              { isMe ? (isDisable ? (<></>) : (<button onClick={()=>{insertRenting(receiver.id, item.itemId)}} className='bg-pr2 mt-3 text-white w-[200px] p-2 px-3 rounded-md hover:bg-pr1'>RentIt </button> )) : (<></>)}
+            </div>
+           </div> ):(<></>)}
+
+
+
+          <div className='flex flex-row gap-2 items-center'>
+          
+          <div className='h-[40px] w-[40px] rounded-full overflow-hidden  bg-pr1 flex items-center justify-center'>
           <img    src={ senderName==receiver.name ? 
           (
           receiverImage ? (receiverImage ) : (`https://avatar.oxro.io/avatar.svg?name=${senderName.split(' ')[0]}+${senderName.split(' ')[1]}`)     
@@ -131,23 +130,22 @@ function Message(props) {
             senderName=='Me' ? ( senderImage ? senderImage : `https://avatar.oxro.io/avatar.svg?name=${user.name.split(' ')[0]}+${user.name.split(' ')[1]}`) 
           : `` 
           )
-          } 
-            
-            
-            className='h-[40px] w-[40px] rounded-full bg-red-100'/>
+
+
+          }   className='object-cover'        
+            />
+          </div>
+         
           <div className='flex flex-col'>
-            <p className='font-medium'>{senderName}</p>
-            <p className='text-sm'>{formatTime(message.created_at)}</p>
+            <p className='font-bold'>{senderName}</p>
+            <p className='text-sm'>{formatTime(message.timestamp)}</p>
           </div>
         </div>
         
         <div className='mt-3 text-lg bg-gray-100 rounded-tr-lg rounded-b-lg p-[10px]'>
-          <p className='px-3 text-md'>{content}</p>
+          <p className='px-3 text-sm'>{content}</p>
         </div>
-          </>
-         
-        ) :(<></>)
-      }
+      
         
        </div>
     );
