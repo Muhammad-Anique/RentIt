@@ -30,7 +30,7 @@ function Chat() {
 
   const messagesContainerRef = useRef(null);
 
-  console.log("Id = >", id, "MyId =>", myId)
+  // console.log("Id = >", id, "MyId =>", myId)
   // Function to scroll the messages container to the bottom
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
@@ -66,8 +66,8 @@ function Chat() {
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
-        const userData = await response.json();
-        setReceiverData(userData);
+        const userData_ = await response.json();
+        setReceiverData(userData_);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -78,7 +78,7 @@ function Chat() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        console.log(openConversation, "c", openConversation.conversationId)
+        // console.log(openConversation, "c", openConversation.conversationId)
         const response = await fetch(`http://localhost:8080/chat/getall/${openConversation.conversationId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch messages');
@@ -103,20 +103,22 @@ function Chat() {
   const [typedMessage, setTypedMessage] = useState('')
 
 
-  useEffect(()=>{
-console.log("M",messages)
-  },[messages])
+//   useEffect(()=>{
+// console.log("M",messages)
+//   },[messages])
   
   useEffect(() => {
-    console.log("ActiveConv ", activeConversation)
+    // console.log("ActiveConv ", activeConversation)
     // Find the conversation matching the activeConversationId
     const conversation = conversations.find(conv => conv.conversationId === activeConversation);
 
-    console.log(conversation)
+    // console.log(conversation)
     
     // If conversation is found, update the openConversation state
     if (conversation) {
       setOpenConversation(conversation);
+
+      // console.log("Here MyId = > ", myId)
       
       // Determine sender and receiver based on myId
       const receiver = myId === conversation.participant1Id ? {
@@ -142,11 +144,11 @@ console.log("M",messages)
         email: conversation.participant1Email,
         profilePic: conversation.participant1ProfilePic
     };
-      console.log(sender)
-      console.log(receiver)
+      // console.log("Sendr : ",sender)
+      // console.log("Reciever" ,receiver)
       // Update sender and receiver states
-      setSender(sender);
-      setReceiver(receiver);
+      setSender(receiver);
+      setReceiver(sender);
 
 
     } else {
@@ -154,11 +156,11 @@ console.log("M",messages)
     }
   }, [activeConversation]);
 
-useEffect(()=>{
+// useEffect(()=>{
 
 
-  console.log("OC",openConversation)
-},[openConversation])
+//   console.log("OC",openConversation)
+// },[openConversation])
 
   useEffect(() => {
     // Extracting the id parameter from the window's path
@@ -261,7 +263,7 @@ useEffect(()=>{
                 openConversation ? (
                   <>
                   {messages && messages.map(message => (
-                    <Message key={message.messageId} message={message} user={user} receiver={receiver} isMe={id===myId} />
+                    <Message key={message.messageId} message={message} user={user} receiver={receiver} isMe={myId} />
                   ))}
                   {!messages && (
                     <div className='flex items-center justify-center h-full w-full font-bold text-pr1'>Sorry, No messages found</div>

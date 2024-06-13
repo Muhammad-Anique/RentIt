@@ -58,6 +58,24 @@ function Navbar_() {
   }, [username_]); 
 
 
+  async function handleoffline(){
+    if(data){
+      try {
+        const response = await fetch(`http://localhost:8080/update/isonline/${data.userId}/0`, {
+          method: 'PUT'
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        console.log('Online status updated successfully');
+      } catch (error) {
+        console.error('Error updating online status:', error);
+      }
+    }
+   
+  }
 
 
 
@@ -86,6 +104,37 @@ function Navbar_() {
   function handleSearch() {
     const Q_= query.replace(/-/g, 'fff');
     const Q= Q_.replace(/ /g, '-');
+
+    try {
+      fetch(`http://localhost:8080/beh/q/${authId}/${Q}`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json' // Assuming you are sending JSON data
+          },
+          body: JSON.stringify({
+              // Include any data you want to send in the request body
+          })
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(data => {
+          // Handle response data
+          console.log('Response:', data);
+      })
+      .catch(error => {
+          // Handle errors
+          console.error('Error:', error);
+      });
+  } catch (error) {
+      console.error('Error:', error);
+  }
+
+
+
     navigate(`/Category/Id/a/a/a/q/${Q}`)
   }
 
@@ -222,7 +271,7 @@ function Navbar_() {
         <img className='object-cover scale-125 translate-y-1' src={data.profilePic} alt="" />
         </div>
         <div>
-        <p>Hello! </p>
+        <p>Profile </p>
         <p className='font-bold'>{data.name}</p>
         </div>
       </div>
@@ -276,7 +325,7 @@ function Navbar_() {
       </div>
 
 
-      <button onClick={()=>{dispatch(logout()); navigate('/')}} className='hover:text-[#295cd3] mt-2'>
+      <button onClick={()=>{dispatch(logout()); navigate('/');handleoffline()}} className='hover:text-[#295cd3] mt-2'>
       <div className='flex flex-row gap-3 items-center'>
       <span class="material-symbols-outlined">
       apps

@@ -23,6 +23,7 @@ import Chat from './Components/ChatBox/Chat.jsx';
 import {persistor} from './store/store'
 import AddItem from './Components/Item/AddItem.jsx'
 import { PersistGate } from 'redux-persist/integration/react';
+import AdminHome from './Components/Admin/AdminHome.jsx';
 
 
 const router = createBrowserRouter([
@@ -50,10 +51,13 @@ const router = createBrowserRouter([
         path:"/add",
         element:<AddItem/>
       },
-      
-     
     ]
 
+  },
+  {
+    path: "/admin",
+    element: <AdminHome/>,
+  
   },
   {
     path: "/home/:id",

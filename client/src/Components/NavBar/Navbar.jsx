@@ -39,12 +39,12 @@ function Navbar(props) {
 
   var fullName = null;
   var nameParts = null;
-  var lastName = 'hello';
+
   if(props.user) 
   {
     fullName = props.user.name;
     nameParts = fullName.split(' ');
-    lastName = nameParts[nameParts.length - 1];
+    // lastName = nameParts[nameParts.length - 1];
 
   }
 
@@ -64,9 +64,9 @@ function Navbar(props) {
     
     {
        props.loggedIn===1 || data ? (
-        <div className='w-[200px] h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
-        {
-          <h1 onClick={()=>{navigate(`/home/${data.userId}/profile`)}}>Hello <span className='font-bold'>{lastName}</span> </h1>
+        <div onClick={()=>{navigate(`/home/${data.userId}/profile`)}} className='w-auto px-3 h-[40px] border-[2.5px] hover:bg-[#0A1048] hover:text-white cursor-pointer  border-[#0A1048] flex items-center justify-center'>  
+        { 
+          <h1> Hello <span className='font-bold'> {data ? data.name : ''}</span> </h1>
         }   
          
       </div>

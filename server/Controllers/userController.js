@@ -9,12 +9,47 @@ function generateAndHashOTP(email) {
     // Generate random 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000);
     // Define email options
-  const mailOptions = {
-    from: 'inocent.inocent.lover2011@gmail.com',
-    to: `${email}`,
-    subject: 'OTP Verification System',
-    text: `Otp for your verfication is ${otp}`
-  };
+    const mailOptions = {
+      from: 'RentIt <inocent.inocent.lover2011@gmail.com>',
+      to: `${email}`,
+      subject: 'OTP Verification System',
+      html: `
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                color: #333;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              }
+              h1 {
+                color: #333;
+              }
+              p {
+                margin-bottom: 20px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>OTP Verification System</h1>
+              <p>Hello,</p>
+              <p>Your OTP for verification is: <strong>${otp}</strong></p>
+              <p>Thank you for using RentIt!</p>
+            </div>
+          </body>
+        </html>
+      `
+    };
+    
 
   // Send email
   transporter.sendMail(mailOptions, (error, info) => {
@@ -147,9 +182,10 @@ const getUserWithItems = (req, res) => {
   const userId = req.params.id; // Assuming userId is provided in the request parameters
 
   pool.query(
-    `SELECT * FROM users
+    `SELECT *  FROM users
     JOIN items ON users.userId = items.OwnerId
     JOIN itemcategories ON items.itemCategory = itemcategories.categoryID 
+    LEFT JOIN rentings ON items.itemId = rentings.itemId
     WHERE users.userId = ?`,
     [userId],
     (error, results) => {
@@ -163,6 +199,62 @@ const getUserWithItems = (req, res) => {
   );
 };
 
+
+
+
+
+const fileReport = (req, res) => {
+  const victim = req.params.victim;
+  const filer = req.params.filer;
+  const reason =req.params.reason
+
+  var text= ''
+  if(reason==1){
+
+    text = "Inappropiate Content"
+
+  }else if(reason==2){
+    text = "Harrasment By User"
+
+  }else if(reason==3){
+    text = "Spam"
+    
+  }else if(reason==4){
+    text = "Fake Account"
+    
+  }
+  pool.query(
+    `
+    INSERT INTO rentitschema.report
+    (
+    victim,
+    filer,
+    reportText,
+    reason)
+    VALUES
+    (
+    ?,
+    ?,
+    ?,
+    ?);
+    `,
+    [victim,filer,text, reason],
+    (error, results) => {
+      if (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: "Error" });
+      } else {
+        if (results.affectedRows > 0) {
+          res.json({
+            message: `success `,
+          });
+        } else {
+          res.status(404).json({ error: `failure` });
+        }
+      }
+    }
+  );
+};
 
 const updateUserStatus = (req, res) => {
   const em = req.params.em; // Assuming userId is provided in the request parameters
@@ -219,9 +311,7 @@ const updateProfile = (req, res) => {
 
 const updateIsOnlineStatus = (req, res) => {
   const userId = req.params.id; // Assuming userId is provided in the request parameters
-  const isOnline = req.params.bit === '1' ? 1 : 0; // Convert string '1' or '0' to integer 1 or 0
-
-  // Execute SQL query to update isOnline status for the user
+  const isOnline = req.params.bit === '1' ? 1 : 0; 
   pool.query(
     `UPDATE users SET isOnline = ? WHERE userId = ?`,
     [isOnline, userId],
@@ -230,9 +320,60 @@ const updateIsOnlineStatus = (req, res) => {
         console.error('Error updating user isOnline status:', error);
         res.status(500).json({ error: 'Error updating user isOnline status' });
       } else {
-        // Check if the update affected any rows
         if (results.affectedRows === 1) {
           res.json({ message: 'User isOnline status updated successfully.' });
+        } else {
+          res.status(404).json({ error: 'User not found.' });
+        }
+      }
+    }
+  );
+};
+
+
+
+
+
+
+
+const addIntrestItem = (req, res) => {
+  const userId = req.params.userId; // Assuming userId is provided in the request parameters
+  const itemId = req.params.itemId
+  pool.query(
+    `Insert into rentitschema.user_interests (userId, itemOfInterest) values (?,?)`,
+    [userId,itemId],
+    (error, results) => {
+      if (error) {
+        console.error('Error', error);
+        res.status(500).json({ error: 'Error' });
+      } else {
+        if (results.affectedRows === 1) {
+          res.json({ message: 'Added successfully.' });
+        } else {
+          res.status(404).json({ error: 'User not found.' });
+        }
+      }
+    }
+  );
+};
+
+
+
+const addSearchQuery = (req, res) => {
+  const userId = req.params.userId; // Assuming userId is provided in the request parameters
+  const query = req.params.query
+
+  console.log(query)
+  pool.query(
+    `Insert into rentitschema.user_search_history (userId, searchQuery ) values (?,?)`,
+    [userId,query],
+    (error, results) => {
+      if (error) {
+        console.error('Error', error);
+        res.status(500).json({ error: 'Error' });
+      } else {
+        if (results.affectedRows === 1) {
+          res.json({ message: 'Added successfully.' });
         } else {
           res.status(404).json({ error: 'User not found.' });
         }
@@ -250,6 +391,9 @@ module.exports = {
   getUserWithItems,
   updateUserStatus,
   updateProfile,
-  updateIsOnlineStatus
+  updateIsOnlineStatus,
+  fileReport,
+  addIntrestItem,
+  addSearchQuery
 
 };

@@ -6,6 +6,9 @@ import cloud1 from '../../Assets/cloud1.png'
 import cloud2 from '../../Assets/cloud2.png'
 import '../../Assets/input.css'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 import google from '../../Assets/google_l.png'
 import Navbar from '../NavBar/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
@@ -98,6 +101,10 @@ const uploadImageToFirebase = async (img) => {
     console.log(formData)
 
   },[formData])
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   function validateInputs(name, email, dob, cnic, password, confirmPassword,imageOne, imageTwo) {
     const emailRegex = /^[^\s@]+@[^@\s]+\.(?:com|org|net|edu|gov|co|io|info|...)$/i;
@@ -266,11 +273,14 @@ const uploadImageToFirebase = async (img) => {
 
           <div class="field field_v1 w-full">
             <label for="first-name" class="ha-screen-reader">Password</label>
-            <input id="first-name" type="password" class="field__input" placeholder=" " name="password"  value={formData.password}
+            <input id="first-name" type={passwordVisible ? "text" : "password"} class="field__input" placeholder=" " name="password"  value={formData.password}
         onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label">Password</span>
             </span>
+            <span className="toggle-password absolute right-1 top-3" onClick={togglePasswordVisibility}>
+        <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+      </span>
           </div>
 
 

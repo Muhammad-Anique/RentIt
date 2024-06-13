@@ -370,7 +370,7 @@ function validateRequestBody(requestBody) {
   const isItemNameValid = itemName.length > 2;
 
   // Check for itemDescription length
-  const isItemDescriptionValid = itemDescription.length >= 30 && itemDescription.length <= 200;
+  const isItemDescriptionValid = itemDescription.length >= 30;
 
   // Check if itemRent is numeric
   const isRentNumeric = !isNaN(parseFloat(itemRent)) && isFinite(itemRent);
@@ -534,7 +534,7 @@ const handleSubmit = async (e) => {
           
           <div class="field field_v1 w-full">
             <label for="security" class="ha-screen-reader">Item Rent</label>
-            <input type="number" id="security" class="field__input" placeholder=" " name="itemSecurity"  value={formValues.itemRent}
+            <input type="number" id="security" class="field__input" placeholder=" " name="itemSecurity"  value={formValues.itemRent *0.20}
             onChange={handleInputChange}/>
             <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label"><span className='text-red-500'>*</span>Security Deposit Rs.</span>

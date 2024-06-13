@@ -33,6 +33,7 @@ HELPERS
   
     font-family: inherit;
     font-size: inherit;
+    font-weight: 400;
   }
   
   .field__input:focus::-webkit-input-placeholder{
@@ -58,6 +59,7 @@ HELPERS
     display: var(--fieldDisplay, inline-flex);
     position: relative;
     font-size: var(--fieldFontSize, 0.95rem);
+    font-weight: 600;
   }
   
   .field__input{

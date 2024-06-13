@@ -10,5 +10,8 @@ router.get('/get/user/items/:id', userController.getUserWithItems)
 router.put('/update/status/:em/:otp', userController.updateUserStatus)
 router.put('/update/profile/:id', userController.updateProfile )
 router.put('/update/isonline/:id/:bit', userController.updateIsOnlineStatus )
+router.post('/report/:victim/:filer/:reason',userController.fileReport)
+router.post('/beh/i/:userId/:itemId',userController.addIntrestItem)
+router.post('/beh/q/:userId/:query',userController.addSearchQuery)
 
 module.exports = router;

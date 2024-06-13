@@ -9,6 +9,8 @@ import google from '../../Assets/google_l.png'
 import Navbar from '../NavBar/Navbar'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../../store/Slices/authSlice'; // Replace with the correct path to your authSlice
@@ -69,9 +71,23 @@ function Login(props) {
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
+
       }
 
       const data = await response.json();
+      try {
+        const response = await fetch(`http://localhost:8080/update/isonline/${data.userId}/1`, {
+          method: 'PUT'
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        console.log('Online status updated successfully');
+      } catch (error) {
+        console.error('Error updating online status:', error);
+      }
       console.log(data);
       dispatch(login({"username": data.userId, "id" : data.userId}));
     
@@ -85,7 +101,13 @@ function Login(props) {
     }
   };
 
+
+ 
   
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   function OTP() {
     const [otp, setOTP] = useState(['', '', '', '', '', '']);
   
@@ -109,6 +131,10 @@ function Login(props) {
         // Handle response
         if (response.ok) {
            notifyS("Account Verified")
+           setTimeout(() => {
+            navigate("/login")
+           }, 500);
+           
         } else {
            notifyF("Wrong OTP")
         }
@@ -172,10 +198,13 @@ function Login(props) {
   
           <div class="field field_v1 w-full">
           <label for="first-name" class="ha-screen-reader">Password</label>
-          <input id="first-name" type="password" class="field__input" placeholder=" " onChange={(e)=>{setPassword(e.target.value)}}/>
+          <input id="first-name" type={passwordVisible ? "text" : "password"}class="field__input" placeholder=" " onChange={(e)=>{setPassword(e.target.value)}}/>
           <span class="field__label-wrap" aria-hidden="true">
               <span class="field__label font-medium"><span className='text-red-500 '>*</span>Password</span>
           </span>
+          <span className="toggle-password absolute right-1 top-3" onClick={togglePasswordVisibility}>
+        <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+      </span>
           </div>
           <button type="submit" className=' text-white  px-10 py-2 mt-7 w-full bg-[#041048]'>Login</button>  
           </form></>)
